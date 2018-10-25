@@ -1,7 +1,7 @@
 pipeline {
   agent any
   stages {
-    stage('Recupération des sources') {
+    stage('RecupÃ©ration des sources') {
       steps {
         git(url: 'https://github.com/xana-psantos/Yatta.git', branch: 'master', credentialsId: 'LoginGitHub')
       }
