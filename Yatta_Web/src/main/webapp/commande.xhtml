@@ -1,0 +1,84 @@
+<!DOCTYPE html > 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui"> 
+<b:form id="FormCommande">
+	<b:panel>
+	<h3>Commandes passées sur votre boutique</h3>
+		
+			<b:dataTable selected-items="rows"  pdf="true" csv="true"
+				value="#{mbCommandeProfil.commandeRecu}" var="cr"
+				onselect="ajax:mbCommandeRecue.clickSelectionCommandeRecue(cr, typeOfSelection, indexes);">
+
+
+				<b:dataTableColumn value="CMD-#{cr.id}">
+				<f:facet name="header">Numéro de commande</f:facet>
+				</b:dataTableColumn>
+
+				<b:dataTableColumn>
+					<f:facet name="header">Etat de la commande</f:facet>
+					<h:outputText rendered="#{cr.dateLivraison gt mbCommandeProfil.maintenant and cr.dateValidation != null}" value="validé" />
+					<h:outputText rendered="#{cr.dateLivraison lt mbCommandeProfil.maintenant}" value="Livré" />
+					<h:outputText rendered="#{cr.dateValidation == null}" value="en cours de validation" />
+				</b:dataTableColumn>
+
+				<b:dataTableColumn  value="#{cr.dateValidation}">
+					<f:facet name="header">Date de validation</f:facet>
+				</b:dataTableColumn>
+				
+				<b:dataTableColumn value="#{cr.dateLivraison}">
+					<f:facet name="header">Date de livraison</f:facet>
+				</b:dataTableColumn>
+				
+				
+				<b:dataTableColumn>
+					<f:facet name="header">Nombre de produit de la commande</f:facet>
+					<h:outputText value="#{cr.lignesDeCommande.size()}" />
+				</b:dataTableColumn>
+
+				<b:dataTableColumn value="#{cr.moyenPaiement.libelle}">
+					<f:facet name="header">Moyen de paiement</f:facet>
+				</b:dataTableColumn>
+
+			</b:dataTable>
+
+	<h3>Commandes que vous avez passées</h3>
+
+			<b:dataTable selected-items="rows"  pdf="true" csv="true"
+				value="#{mbCommandeProfil.commmandePassees}" var="cp">
+
+
+				<b:dataTableColumn value="CMD-#{cp.id}">
+				</b:dataTableColumn>
+
+				<b:dataTableColumn>
+					<f:facet name="header">Etat de la commande</f:facet>
+					<h:outputText rendered="#{cp.dateLivraison gt mbCommandeProfil.maintenant and cr.dateValidation != null}" value="validé" />
+					<h:outputText rendered="#{cp.dateLivraison lt mbCommandeProfil.maintenant}" value="Livré" />
+					<h:outputText rendered="#{cp.dateValidation == null}" value="en cours de validation" />
+				</b:dataTableColumn>
+				
+								<b:dataTableColumn  value="#{cp.dateValidation}">
+					<f:facet name="header">Date de validation</f:facet>
+				</b:dataTableColumn>
+				
+				<b:dataTableColumn value="#{cp.dateLivraison}">
+					<f:facet name="header">Date de livraison</f:facet>
+				</b:dataTableColumn>
+
+				<b:dataTableColumn>
+					<f:facet name="header">Nombre de produit de la commande</f:facet>
+					<h:outputText value="#{cp.lignesDeCommande.size()}" />
+				</b:dataTableColumn>
+
+				<b:dataTableColumn value="#{cp.moyenPaiement.libelle}">
+					<f:facet name="header">Moyen de paiement</f:facet>
+				</b:dataTableColumn>
+
+			</b:dataTable>
+	</b:panel>
+</b:form>
+
+</html>

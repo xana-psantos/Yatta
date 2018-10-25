@@ -1,0 +1,29 @@
+<!DOCTYPE html > 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui"> 
+
+
+	<h3>Membre qui suivent <h:outputText value="#{mbProfil.membreProfil.pseudonyme}" /> </h3>
+	<ui:repeat var="follower" value="#{mbProfil.membreFollowers}">
+	<div class="col-md-3 d-inline-block"
+			rendered="#{follower.membreSuiveur.dateDesinscription == null}">
+	<b:panel style-class="panelMembre" style="text-align:center;">
+	<b:row style-class="ligneImageMembre">
+		<img src="resources/images/personne/#{follower.membreSuiveur.photo}" class="img-fluid center-block membre"
+			alt="Responsive image" style="border-radius: 50%; text-align: center; width: 130px; height: 130px; margin-bottom: 2vh;"/>
+	</b:row>
+	<b:row style-class="ligneMembre">
+		<h:outputText value="#{follower.membreSuiveur.pseudonyme}" styleClass="nomMembre" style="text-align:center;font-weight:bold;"/>
+	</b:row>
+	<b:row style-class="ligneBoutiqueEspaceTuto">
+		<h:outputText value="Boutique : #{follower.membreSuiveur.boutique.nom}" styleClass="nomBoutiqueMembre" style="text-align:center;"/><br/>
+		<h:outputText value="Espace tutoriels : #{follower.membreSuiveur.espaceTutoriel.nom}" styleClass="nomEspaceTutoMembre" style="text-align:center;"/><br/>
+	</b:row>
+</b:panel>
+</div>
+</ui:repeat>
+ 
+</html>

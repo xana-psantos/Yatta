@@ -1,0 +1,131 @@
+#containerBody {
+	_max-height: 80vh;
+}
+#titre_accueil {
+	text-align: center;
+}
+
+.lead {
+	font-family: 'Open Sans', sans-serif;
+	text-transform: uppercase;
+	color: grey;
+}
+
+#bd_accueil {
+	margin-top: 15px;
+	margin-bottom: 15px;
+}
+
+/* ***************Boutiques et Tutos*************** */
+#boutiqueTutoAccueil {
+	text-align: center;
+
+	margin-top: 6vh;
+}
+
+.boutique_card_accueil, .tutoriels_card_accueil {
+	_background-color: white;
+	padding: 0 4vw;
+	_align-items: center;
+	align-items: flex-start;
+	_margin: 0 4vw;
+	margin-top: 4vh;
+	_height: 30rem;
+}
+
+.boutique_card_accueil .image_espace:hover, .tutoriels_card_accueil .image_espace:hover
+	{
+	-moz-box-shadow: 1px 1px 15px 8px #c0c0c0;
+	-webkit-box-shadow: 1px 1px 15px 8px #c0c0c0;
+	-o-box-shadow: 1px 1px 15px 8px #c0c0c0;
+	box-shadow: 1px 1px 15px 8px #c0c0c0;
+	filter: progid:DXImageTransform.Microsoft.Shadow(color=#c0c0c0,
+		Direction=134, Strength=15);
+	cursor: pointer;
+	color: black;
+}
+
+div.image_espace {
+	position: relative;
+	height: 40rem;
+	_height: 40vh; /*bouge trop en responsive*/
+	text-align: center;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: contain;
+	border: 1px solid grey;
+	color: grey;
+}
+
+div.image_espace .crop {
+	height: 30vh;
+	overflow: hidden;
+}
+
+div.image_espace .bd_explicative {
+	_height: 35vh;
+	width: auto;
+	margin: 0;
+	padding: 0;
+}
+
+.image_espace h1 {
+	position: absolute;
+	left: 0;
+	top: 0;
+	background-color: white;
+}
+
+.image_espace h3 {
+	position: absolute;
+	bottom: 0;
+	background-color: white;
+}
+
+.boutique_card_accueil h1, .tutoriels_card_accueil h1 {
+	padding-left: 2rem;
+}
+
+.boutique_card_accueil h3 {
+	padding: 1rem 2rem 3rem 6rem;
+}
+
+.tutoriels_card_accueil h3 {
+	padding: 1rem 0 3rem 3.7rem;
+}
+
+.boutique_card_accueil .image_espace {
+	background-image: url('../images/accueil/BoutiqueYatta.gif');
+}
+
+.tutoriels_card_accueil .image_espace {
+	background-image: url('../images/accueil/TutoYatta.gif');
+}
+
+/* ***********MEDIA QUERIES************ */
+@media screen and (max-width: 820px) {
+	
+	.boutique_card_accueil h3 {
+		padding: 3.5rem 2.5rem 2rem 2rem;
+	}
+	.tutoriels_card_accueil h3 {
+		padding: 3.5rem 0 2rem 0;
+	}
+}
+
+@media screen and (max-width: 640px) {
+	.boutique_card_accueil h3 {
+		padding: 2.5rem 2rem 2rem 2rem;
+	}
+	.tutoriels_card_accueil h3 {
+		padding: 2.5rem 0 2rem 0;
+	}
+}
+@media screen and (max-width: 420px) {
+	.boutique_card_accueil h3 {
+		padding: 4.5rem 2rem 2rem 2rem;
+	}
+	.tutoriels_card_accueil h3 {
+		padding: 4.5rem 0 2rem 0;
+	}
+}

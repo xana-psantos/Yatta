@@ -1,0 +1,454 @@
+<!DOCTYPE html >
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions">
+<ui:composition template="/master-page.xhtml">
+	<ui:define name="titre">Yatta</ui:define>
+	<ui:define name="cssPage">
+		<link href="resources/css/recherche.css" rel="stylesheet"
+			type="text/css" />
+	</ui:define>
+	<ui:define name="mainSection">
+		<b:form id="formRecherche">
+			<b:container fluid="true">
+				<b:row>
+					<b:panelGrid colSpans="2,10">
+						<b:panel class="menu_recherche" look="primary" collapsible="false"
+							title="Recherche">
+							<b:panel>Catégories</b:panel>
+
+							<ui:repeat var="cat" value="#{mbApplication.categories}">
+								<b:selectBooleanCheckbox class="menu_item"
+									caption="#{cat.libelle}"
+									value="#{mbRecherche.booleanCheckboxByCategorieId[cat.id]}" />
+							</ui:repeat>
+
+							<b:panel>Type de recherche</b:panel>
+							<b:selectBooleanCheckbox class="menu_item" caption="Article"
+								value="true" />
+
+							<b:selectBooleanCheckbox class="menu_item" caption="Tutoriels"
+								value="true" />
+							<b:selectBooleanCheckbox class="menu_item" caption="Boutique"
+								value="true" />
+							<b:selectBooleanCheckbox class="menu_item"
+								caption="Espaces tutoriels" value="true" />
+							<b:selectBooleanCheckbox class="menu_item" caption="Membres"
+								value="true" />
+							<b:commandButton value="Rechercher" ajax="true" update="@form" />
+						</b:panel>
+						<b:panel class="resultat_recherche" collapsible="false"
+							look="primary">
+							<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ARTICLES !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+							<b:panel collapsible="false" styleClass="panelArticles"
+								id="panelArticles"
+								rendered="#{mbRecherche.boolCheckBoxBoutique}">
+								<f:facet name="heading" class="type_heading">
+									<b:row>
+										<b:panelGrid colSpans="11,1" class="type_heading">
+											<span class="titre_section_resultats"
+												style="font-size: large; text-align: left">Articles</span>
+											<b:dropMenu look="primary" value="Filtrer">
+												<b:navLink value="un filtre" href="#"></b:navLink>
+												<b:navLink value="un autre filtre" href="#"></b:navLink>
+												<b:navLink value="encore un filtre" href="#"></b:navLink>
+											</b:dropMenu>
+										</b:panelGrid>
+									</b:row>
+								</f:facet>
+								<b:row>
+									<h:outputLabel
+										value="Pas d'articles correspondant à votre recherche :("
+										rendered="#{mbRecherche.articles.isEmpty()}"
+										style="text-align:center;display:block;" />
+									<ui:repeat var="article" value="#{mbRecherche.articles}">
+										<div class="col-md-3 d-inline-block">
+											<b:panel style-class="panelArticle">
+												<b:row style-class="ligneImage">
+													<img
+														src="resources/images/produitsArticles/#{article.image}"
+														class="img-fluid imageArticle" alt="Responsive image" />
+												</b:row>
+												<b:row style-class="ligneArticle">
+													<h:outputLabel
+														value="#{fn:substring(article.titre, 0, 27)}..."
+														styleClass="nomArticle"
+														rendered="#{article.titre.length() >= 30}" />
+													<h:outputLabel
+														value="#{fn:substring(article.titre, 0, 27)}..."
+														styleClass="nomArticle"
+														rendered="#{30 > article.titre.length()}" />
+												</b:row>
+												<b:row style-class="ligneVendeur">
+													<h:outputText
+														value="Vendu par : #{article.boutique.membre.pseudonyme}"
+														styleClass="nomVendeur" />
+												</b:row>
+												<b:row style-class="ligneCategorie">
+													<ui:repeat var="categorieArticle"
+														value="#{article.categorie.libelle}">
+														<b:badge value="#{categorieArticle}" severity="info" />
+													</ui:repeat>
+												</b:row>
+												<b:row style-class="lignePrix">
+													<b:column medium-screen="6" style-class="columnPrix">
+														<h:outputText value="#{article.prix} €" styleClass="prix" />
+													</b:column>
+													<b:column medium-screen="3">
+														<b:button icon="heart" look="danger" />
+													</b:column>
+													<b:column medium-screen="3">
+														<b:commandButton icon="shopping-cart" look="success" action="#{mbPanier.ajouterAuPanier(article,1)}"/>
+													</b:column>
+												</b:row>
+												<b:row tiny-screen="3"
+													style="text-align:center;vertical-alignement:center;">
+													<b:commandButton value="Voir plus" look="link"
+														style="color:#00c9b1;"
+														action="#{mbRecherche.goToFicheArticle(article)}" />
+												</b:row>
+											</b:panel>
+										</div>
+									</ui:repeat>
+								</b:row>
+								<b:row>
+									<b:panelGrid offset="11" colSpans="12" class="type_heading"
+										rendered="#{!mbRecherche.articles.isEmpty() and mbRecherche.articlesAll.size() > 4}">
+										<b:commandButton look="primary"
+											icon="#{mbRecherche.boutonPMArticles}" ajax="true"
+											update="@(.panelArticles)"
+											action="#{mbRecherche.afficherPlusOuMoinsArticles()}" />
+									</b:panelGrid>
+								</b:row>
+							</b:panel>
+							<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! TUTORIELS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+							<b:panel collapsible="false" styleClass="panelTutoriels">
+								<f:facet name="heading" class="type_heading">
+									<b:row>
+										<b:panelGrid colSpans="11,1" class="type_heading">
+											<span class="titre_section_resultats"
+												style="font-size: large; text-align: left">Tutoriels</span>
+											<b:dropMenu look="primary" value="Filtrer">
+												<b:navLink value="un filtre" href="#"></b:navLink>
+												<b:navLink value="un autre filtre" href="#"></b:navLink>
+												<b:navLink value="encore un filtre" href="#"></b:navLink>
+											</b:dropMenu>
+										</b:panelGrid>
+									</b:row>
+								</f:facet>
+								<b:row styleClass="listeTutoriels">
+									<h:outputLabel
+										value="Pas de tutoriels correspondant à votre recherche :("
+										rendered="#{mbRecherche.tutoriels.isEmpty()}"
+										style="text-align:center;display:block;" />
+									<ui:repeat var="tuto" value="#{mbRecherche.tutoriels}">
+										<div class="col-md-3 d-inline-block">
+											<b:panel style-class="panelTutoriel">
+												<b:row style-class="ligneVideo">
+													<div class="embed-responsive embed-responsive-16by9">
+														<iframe class="embed-responsive-item"
+															src="https://www.youtube.com/embed/#{tuto.contenu}?rel=0"></iframe>
+													</div>
+												</b:row>
+												<b:row style-class="ligneArticle">
+													<h:outputLabel
+														value="#{fn:substring(tuto.titre, 0, 27)}..."
+														styleClass="nomTutoriel"
+														rendered="#{tuto.titre.length() >= 30}" />
+													<h:outputLabel value="#{tuto.titre}"
+														styleClass="nomTutoriel"
+														rendered="#{30 > tuto.titre.length()}" />
+												</b:row>
+												<b:row style-class="ligneCreateur">
+													<h:outputText
+														value="par #{tuto.espaceTutoriel.membre.pseudonyme}"
+														styleClass="nomCreateur" />
+												</b:row>
+												<b:row style-class="ligneCategorie">
+													<ui:repeat var="categorieTuto"
+														value="#{tuto.categorie.libelle}">
+														<b:badge value="#{categorieTuto}" severity="info" />
+													</ui:repeat>
+												</b:row>
+												<b:row style-class="ligneFav">
+													<b:column medium-screen="9">
+													</b:column>
+													<b:column medium-screen="3">
+														<b:button icon="heart" look="danger" />
+													</b:column>
+												</b:row>
+												<b:row tiny-screen="3"
+													style="text-align:center;vertical-alignement:center;">
+													<b:commandButton value="Voir plus" look="link"
+														style="color:#00c9b1;"
+														action="#{mbRecherche.goToTuto(tuto)}" />
+												</b:row>
+											</b:panel>
+										</div>
+									</ui:repeat>
+
+								</b:row>
+								<b:row>
+									<b:panelGrid offset="11" colSpans="12" class="type_heading"
+										rendered="#{!mbRecherche.tutoriels.isEmpty()  and mbRecherche.tutorielsAll.size() > 4}">
+										<b:commandButton look="primary"
+											icon="#{mbRecherche.boutonPMTuto}" ajax="true"
+											update="@(.panelTutoriels)"
+											action="#{mbRecherche.afficherPlusOuMoinsTutos}" />
+									</b:panelGrid>
+								</b:row>
+							</b:panel>
+
+							<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! BOUTIQUES  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+							<b:panel collapsible="false" styleClass="panelBoutiques">
+								<f:facet name="heading" class="type_heading">
+									<b:row>
+										<b:panelGrid colSpans="11,1" class="type_heading">
+											<span class="titre_section_resultats"
+												style="font-size: large; text-align: left">Boutiques</span>
+											<b:dropMenu look="primary" value="Filtrer">
+												<b:navLink value="un filtre" href="#"></b:navLink>
+												<b:navLink value="un autre filtre" href="#"></b:navLink>
+												<b:navLink value="encore un filtre" href="#"></b:navLink>
+											</b:dropMenu>
+										</b:panelGrid>
+
+									</b:row>
+								</f:facet>
+								<b:row>
+									<h:outputLabel
+										value="Pas de boutiques correspondant à votre recherche :("
+										rendered="#{mbRecherche.boutiques.isEmpty()}"
+										style="text-align:center;display:block;" />
+									<ui:repeat var="boutique" value="#{mbRecherche.boutiques}">
+										<div class="col-md-3 d-inline-block">
+											<b:panel class="panelBoutique">
+												<b:row style-class="ligneImageBoutique">
+													<img src="resources/images/store_boutique.png"
+														class="img-fluid" alt="Responsive image"
+														style="width: 100%;" />
+													<img src="resources/images/Boutique/#{boutique.image}"
+														class="img-fluid imageBoutique" alt="Responsive image"
+														style="width: 100%;" />
+
+												</b:row>
+												<b:row style-class="ligneBoutique">
+													<h:outputLabel
+														value="#{fn:substring(boutique.nom, 0, 27)}..."
+														styleClass="nomBoutique"
+														rendered="#{boutique.nom.length() >= 30}" />
+													<h:outputLabel value="#{boutique.nom}"
+														styleClass="nomBoutique"
+														rendered="#{30 > boutique.nom.length()}" />
+												</b:row>
+												<b:row style-class="ligneProprietaireBoutique">
+													<h:outputText
+														value="Vendeur : #{boutique.membre.pseudonyme}"
+														styleClass="nomProprietaire" />
+												</b:row>
+												<b:row style-class="ligneCategories">
+													<ui:repeat var="categorieBoutique"
+														value="#{mbRecherche.chercherCategoriesBoutique(boutique.id)}">
+														<b:badge value="#{categorieBoutique.libelle}"
+															severity="info" />
+													</ui:repeat>
+												</b:row>
+												<b:row style-class="ligneConsulter">
+													<b:column medium-screen="9">
+													</b:column>
+													<b:column medium-screen="3">
+														<b:button icon="heart" look="danger" />
+													</b:column>
+												</b:row>
+												<b:row tiny-screen="3"
+													style="text-align:center;vertical-alignement:center;">
+													<b:commandButton value="Voir plus" look="link"
+														style="color:#00c9b1;"
+														action="#{mbRecherche.goToBoutique(boutique)}" />
+												</b:row>
+											</b:panel>
+										</div>
+									</ui:repeat>
+								</b:row>
+								<b:row>
+									<b:panelGrid offset="11" colSpans="12" class="type_heading">
+										<b:commandButton look="primary"
+											icon="#{mbRecherche.boutonPMBoutiques}" ajax="true"
+											update="@(.panelBoutiques)"
+											action="#{mbRecherche.afficherPlusOuMoinsBoutiques}"
+											rendered="#{!mbRecherche.boutiques.isEmpty() and  mbRecherche.boutiquesAll.size() > 4}" />
+									</b:panelGrid>
+								</b:row>
+							</b:panel>
+							<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ESPACES TUTO !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+							<b:panel collapsible="false" styleClass="panelEspacesTuto">
+								<f:facet name="heading" class="type_heading">
+									<b:row>
+										<b:panelGrid colSpans="11,1" class="type_heading">
+											<span class="titre_section_resultats"
+												style="font-size: large; text-align: left">Espaces
+												Tutoriels</span>
+											<b:dropMenu look="primary" value="Filtrer">
+												<b:navLink value="un filtre" href="#"></b:navLink>
+												<b:navLink value="un autre filtre" href="#"></b:navLink>
+												<b:navLink value="encore un filtre" href="#"></b:navLink>
+											</b:dropMenu>
+										</b:panelGrid>
+									</b:row>
+								</f:facet>
+								<b:row>
+									<h:outputLabel
+										value="Pas d'espaces tutoriels correspondant à votre recherche :("
+										rendered="#{mbRecherche.espaceTutos.isEmpty()}"
+										style="text-align:center;display:block;" />
+									<ui:repeat var="espTuto" value="#{mbRecherche.espaceTutos}">
+										<div class="col-md-3 d-inline-block">
+											<b:panel class="panelEspaceTuto">
+												<b:row style-class="ligneImageEspaceTuto">
+													<img src="resources/images/store_espace_tuto.png"
+														class="img-fluid" alt="Responsive image"
+														style="width: 100%;" />
+													<img src="resources/images/espacesTuto/#{espTuto.image}"
+														class="img-fluid imageEspaceTuto" alt="Responsive image"
+														style="width: 100%;" />
+												</b:row>
+												<b:row style-class="ligneEspaceTuto">
+
+													<h:outputLabel
+														value="#{fn:substring(espTuto.nom, 0, 27)}..."
+														styleClass="nomEspaceTuto"
+														rendered="#{espTuto.nom.length() >= 30}" />
+													<h:outputLabel value="#{espTuto.nom}"
+														styleClass="nomEspaceTuto"
+														rendered="#{30 > espTuto.nom.length()}" />
+												</b:row>
+												<b:row style-class="ligneEditeur">
+													<h:outputText
+														value="Editeur : #{espTuto.membre.pseudonyme}"
+														styleClass="nomEditeur" />
+												</b:row>
+												<b:row style-class="ligneCategories">
+													<ui:repeat var="categorieEspTutos"
+														value="#{mbRecherche.chercherCategoriesEspaceTuto(espTuto.id)}">
+														<b:badge value="#{categorieEspTutos.libelle}"
+															severity="info" />
+														<br />
+													</ui:repeat>
+												</b:row>
+												<b:row style-class="ligneConsulterTuto">
+													<b:column medium-screen="9">
+													</b:column>
+													<b:column medium-screen="3">
+														<b:button icon="heart" look="danger" />
+													</b:column>
+												</b:row>
+												<b:row tiny-screen="3"
+													style="text-align:center;vertical-alignement:center;">
+													<b:commandButton value="Voir plus" look="link"
+														style="color:#00c9b1;"
+														action="#{mbRecherche.goToEspaceTuto(espTuto)}" />
+												</b:row>
+											</b:panel>
+
+										</div>
+									</ui:repeat>
+								</b:row>
+								<b:row>
+									<b:panelGrid offset="11" colSpans="12" class="type_heading">
+										<b:commandButton look="primary"
+											icon="#{mbRecherche.boutonPMEspaceTutos}" ajax="true"
+											update="@(.panelEspacesTuto)"
+											action="#{mbRecherche.afficherPlusOuMoinsEspaceTutos()}"
+											rendered="#{!mbRecherche.espaceTutos.isEmpty()  and mbRecherche.espaceTutosAll.size() > 4}" />
+									</b:panelGrid>
+
+								</b:row>
+							</b:panel>
+							<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! MEMBRES !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+							<b:panel collapsible="false" styleClass="panelMembres">
+								<f:facet name="heading" class="type_heading">
+									<b:row>
+										<b:panelGrid colSpans="11,1
+										" class="type_heading">
+											<span class="titre_section_resultats"
+												style="font-size: large; text-align: left">Membres</span>
+											<b:dropMenu value="Filtrer">
+												<b:navLink value="un filtre" href="#"></b:navLink>
+												<b:navLink value="un autre filtre" href="#"></b:navLink>
+												<b:navLink value="encore un filtre" href="#"></b:navLink>
+											</b:dropMenu>
+										</b:panelGrid>
+									</b:row>
+								</f:facet>
+								<b:row>
+									<h:outputLabel
+										value="Pas de membres correspondant à votre recherche :("
+										rendered="#{mbRecherche.membres.isEmpty()}" />
+									<ui:repeat var="membre" value="#{mbRecherche.membres}">
+										<div class="col-md-3 d-inline-block">
+											<b:panel style-class="panelMembre">
+												<b:row style-class="ligneImageMembre">
+													<img src="resources/images/personne/#{membre.photo}"
+														class="img-fluid membre" alt="Responsive image" />
+												</b:row>
+												<b:row style-class="ligneMembre">
+													<h:outputLabel value="#{membre.pseudonyme}"
+														styleClass="nomMembre" />
+												</b:row>
+												<b:row>
+													<h:outputText
+														value="Boutique : #{fn:substring(membre.boutique.nom, 0, 17)}..."
+														styleClass="labelNomBoutiqueMembre"
+														rendered="#{membre.boutique.nom.length() >= 20 and membre.boutique.nom != null}" />
+													<h:outputText value="Boutique : #{membre.boutique.nom}"
+														styleClass="labelNomBoutiqueMembre"
+														rendered="#{20 > membre.boutique.nom.length() and membre.boutique.nom != null}" />
+													<h:outputText value="Boutique : aucune"
+														styleClass="labelNomBoutiqueMembre"
+														rendered="#{membre.boutique.nom == null}" />
+												</b:row>
+												<b:row>
+													<h:outputText
+														value="Espace tutoriel : #{fn:substring(membre.espaceTutoriel.nom, 0, 17)}..."
+														styleClass="labelNomEspaceTutorielMembre"
+														rendered="#{membre.espaceTutoriel.nom.length() >= 20 and membre.espaceTutoriel.nom != null}" />
+													<h:outputText
+														value="Espace tutoriel : #{membre.espaceTutoriel.nom}"
+														styleClass="labelNomEspaceTutorielMembre"
+														rendered="#{30 > membre.espaceTutoriel.nom.length() and membre.espaceTutoriel.nom != null}" />
+													<h:outputText value="Espace tutoriel : aucun"
+														styleClass="labelNomEspaceTutorielMembre"
+														rendered="#{membre.espaceTutoriel.nom == null}" />
+												</b:row>
+												<b:row>
+													<h:outputText
+														value="Inscrit(e) depuis le : #{membre.dateInscription.date}/#{membre.dateInscription.month + 1}/#{membre.dateInscription.year - 100}"
+														styleClass="labelDateInscription">
+													</h:outputText>
+												</b:row>
+											</b:panel>
+										</div>
+									</ui:repeat>
+								</b:row>
+								<b:row>
+									<b:panelGrid offset="11" colSpans="12" class="type_heading">
+										<b:commandButton look="primary"
+											icon="#{mbRecherche.boutonPMMembres}" ajax="true"
+											update="@(.panelMembres)"
+											action="#{mbRecherche.afficherPlusOuMoinsMembres}"
+											rendered="#{!mbRecherche.membres.isEmpty()  and mbRecherche.membresAll.size() > 4}" />
+									</b:panelGrid>
+								</b:row>
+							</b:panel>
+						</b:panel>
+					</b:panelGrid>
+				</b:row>
+			</b:container>
+		</b:form>
+
+	</ui:define>
+</ui:composition>
+</html>

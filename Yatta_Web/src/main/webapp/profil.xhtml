@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:b="http://bootsfaces.net/ui">
+
+<ui:composition template="/master-page.xhtml">
+	<ui:define name="titre">Yatta</ui:define>
+	<ui:define name="cssPage">
+		<link href="resources/css/profil.css" rel="stylesheet" type="text/css" />
+		<link href="resources/css/commandeRecue.css" rel="stylesheet"
+			type="text/css" />
+		<link href="resources/css/cartoucheArticle.css" rel="stylesheet"
+			type="text/css" />
+	</ui:define>
+	<ui:define name="mainSection">
+		<b:container fluid="true">
+
+			<section>
+				<b:row>
+					<b:form>
+<!-- ****************************************COLONNE GAUCHE**************************************************** -->
+						<b:column medium-screen="2" class="colonneProfil">
+							<b:row>
+
+								<b:panel class="profilTop">
+									<b:image styleClass="imageProfilTop" style="border-radius: 50%; margin-top:5vh;"
+										value="resources/images/personne/#{mbProfil.membreProfil.photo}" />
+
+									<h3>
+										<h:outputText value="#{mbProfil.membreProfil.pseudonyme}" />
+									</h3>
+									<p>
+										Date d'inscription :
+										<h:outputText value="#{mbProfil.membreProfil.dateInscription}">
+											<f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
+										</h:outputText>
+									</p>
+									<b:column col-md="12">
+									<b:commandButton
+										action="#{mbProfil.ajouterFavoris()}" value="Ajouter à mes favoris"
+										rendered="#{mbProfil.membreProfilestConnecte==false}">
+										<b:iconAwesome name="fa-heart-o"></b:iconAwesome>
+									</b:commandButton>
+									</b:column>
+								</b:panel>
+								<div>
+									<div class="classeAPropos">
+										<h4>A propos</h4>
+									</div>
+									<div class="descriptionProfil">
+										<p>
+											<h:outputText value="#{mbProfil.membreProfil.description}" />
+										</p>
+									</div>
+								</div>
+							</b:row>
+						</b:column>
+					</b:form>
+<!-- ************************************PROFIL**************************************** -->
+					<b:column medium-screen="10">
+						<b:tabView activeIndex="#{mbProfil.activeIndex}"
+							styleClass="tabViewProfil">
+							<b:tab styleClass="classeTab" title="Profil">
+								<b:form>
+									<h3>
+										Profil de
+										<h:outputText value="#{mbProfil.membreProfil.prenom}" />
+									</h3>
+									<b:panel>
+										<b:panel>
+											<p style="font-size:1.5em;">Boutique</p>
+											<b:image styleClass="imageEspace" median-screen="1"
+												value="resources/images/Boutique/#{mbProfil.boutiqueProfil.image}" />
+											<h4>
+												<b:commandButton look="link" style="font-size:1.5em;"
+													action="#{mbProfil.redirigerVersBoutique()}"
+													value="#{mbProfil.boutiqueProfil.nom}"></b:commandButton>
+											</h4>
+											<p style="text-align:justify;">
+												<h:outputText value="#{mbProfil.boutiqueProfil.description}" />
+											</p>
+										</b:panel>
+										<b:panel>
+											<p style="font-size:1.5em;">EspaceTuto</p>
+											<b:image median-screen="1" class="imageEspace"
+												value="resources/images/espacesTuto/#{mbProfil.espaceTutoProfil.image}" />
+											<h4>
+												<b:commandButton look="link" style="font-size:1.5em;"
+													action="#{mbProfil.redirigerVersEspaceTuto()}"
+													value="#{mbProfil.espaceTutoProfil.nom}"></b:commandButton>
+											</h4>
+											<p style="text-align:justify;">
+												<h:outputText
+													value="#{mbProfil.espaceTutoProfil.descriptif}" />
+											</p>
+										</b:panel>
+									</b:panel>
+								</b:form>
+							</b:tab>
+<!-- *****************************************FAVORIS************************************************************ -->
+							<b:tab styleClass="classeTab" title="Favoris">
+								<b:form>
+									<ui:include src="/favoris.xhtml"></ui:include>
+								</b:form>
+							</b:tab>
+							<b:tab styleClass="classeTab" title="Followers">
+								<b:form>
+									<ui:include src="/followers.xhtml"></ui:include>
+								</b:form>
+							</b:tab>
+							<b:tab styleClass="classeTab" title="Vos commandes">
+								<ui:include src="/commande.xhtml"></ui:include>
+							</b:tab>
+							<b:tab styleClass="classeTab" title="Gestion de votre boutique">
+								<ui:include src="/GestionBoutique.xhtml"></ui:include>
+							</b:tab>
+							<b:tab styleClass="classeTab" title="Gérer votre espace tutoriel">
+								<b:form>
+									<ui:include src="/gestionEspaceTutoriel.xhtml" />
+								</b:form>
+							</b:tab>
+							<b:tab styleClass="classeTab" title="Détails de la commande"
+								rendered="#{mbProfil.showCommandeRecue}">
+
+								<ui:include src="/commandeRecue.xhtml" />
+
+							</b:tab>
+							<b:tab styleClass="classeTab" title="Détails de la commande"
+								rendered="#{mbProfil.showCommandePassee}">
+								<b:form>
+									<ui:include src="/commandePassee.xhtml" />
+								</b:form>
+							</b:tab>
+						</b:tabView>
+					</b:column>
+				</b:row>
+			</section>
+		</b:container>
+	</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,401 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:b="http://bootsfaces.net/ui">
+<ui:composition template="/master-page.xhtml">
+	<ui:define name="titre">Yatta</ui:define>
+	<ui:define name="cssPage">
+		<link href="resources/css/pagePanier.css" rel="stylesheet"
+			type="text/css" />
+	</ui:define>
+	<ui:define name="mainSection">
+
+		<b:container fluid="true" id="containerCommande">
+
+			<b:row>
+				<b:progressBar value="33" caption="Panier" look="primary"
+					rendered="#{mbPanier.compteurPagePourRendered == 1}" />
+			</b:row>
+			<b:row>
+				<b:progressBar value="66" caption="Adresses" look="primary"
+					rendered="#{mbPanier.compteurPagePourRendered == 2}" />
+			</b:row>
+			<b:row>
+				<b:progressBar value="100" caption="Paiement" look="primary"
+					rendered="#{mbPanier.compteurPagePourRendered == 3}" />
+			</b:row>
+			<b:form id="formPagePaiement">
+				<h:panelGroup style-class="panier" id="formPanier">
+
+					<b:panel look="info" collapsible="false" style-class="panelPanier"
+						rendered="#{mbPanier.compteurPagePourRendered == 1}">
+						<f:facet name="heading" class="header">
+							<b:row style-class="ligneHeader">
+								<b:column col-md="6" style-class="columnTitre">
+									<b:icon name="shopping-cart" />
+									<h:outputText value=" Vos produits" />
+								</b:column>
+								<b:column col-md="6" styleClass="colonneBoutonRetour">
+									<b:commandButton value="Continuer vos achats" icon="share-alt"
+										look="primary" style-class="boutonRetourAchat" />
+								</b:column>
+							</b:row>
+						</f:facet>
+						<ui:repeat var="commande" value="#{mbPanier.listeCommandesMembre}">
+							<b:panelGrid colSpans="1,10,1" class="type_heading">
+								<div class="empty" />
+								<b:dataTable selected-items="rows"
+									value="#{commande.lignesDeCommande}" var="ligneCommande"
+									searching="false" responsive="true" paginated="false"
+									info="false" styleClass="articlesDataTable">
+									<b:dataTableColumn headerStyleClass="headerArticle">
+										<f:facet name="header">Article(s)</f:facet>
+										<b:panelGrid colSpans="4,8" class="type_heading">
+											<b:image
+												value="resources/images/produitsArticles/#{ligneCommande.article.image}"
+												styleClass="imageProduit" />
+											<h:outputText value="#{ligneCommande.article.titre}" />
+										</b:panelGrid>
+									</b:dataTableColumn>
+									<b:dataTableColumn>
+										<f:facet name="header">Vendeur</f:facet>
+										<h:outputText
+											value="#{ligneCommande.article.boutique.membre.pseudonyme}"
+											styleClass="nomVendeur" />
+									</b:dataTableColumn>
+									<b:dataTableColumn>
+										<f:facet name="header">Prix unitaire</f:facet>
+										<h:outputText value="#{ligneCommande.article.prix} €" />
+									</b:dataTableColumn>
+									<b:dataTableColumn>
+										<f:facet name="header">Quantité</f:facet>
+										<b:formGroup>
+											<b:touchSpin id="spin1" col-md="3"
+												value="#{ligneCommande.quantite}" />
+										</b:formGroup>
+									</b:dataTableColumn>
+									<b:dataTableColumn>
+										<f:facet name="header">Supprimer</f:facet>
+										<b:commandButton icon="trash" />
+									</b:dataTableColumn>
+								</b:dataTable>
+								<div class="empty" />
+							</b:panelGrid>
+						</ui:repeat>
+						<f:facet name="footer">
+							<b:row style-class="ligneTotal">
+								<b:column col-xs="9">
+									<h:outputText value="Total = " />
+									<h:outputText value="#{mbPanier.prixTotal}" style-class="total">
+										<f:convertNumber maxFractionDigits="2" />
+									</h:outputText>
+									<h:outputText value=" €" />
+
+								</b:column>
+								<b:column col-xs="3">
+								</b:column>
+							</b:row>
+						</f:facet>
+					</b:panel>
+				</h:panelGroup>
+
+				<!-- Page connexion-->
+
+				<h:panelGroup id="masterFormPanier" styleClass="connexionPanier">
+					<b:container fluid="true"
+						rendered="#{mbPanier.compteurPagePourRendered == 4}">
+
+
+
+						<b:row class="modalHeader">
+							<b:column span="half">
+								<b:label text="Connexion" style-class="label_modal label_header" />
+								<br />
+								<b:label text="Vous êtes un(e) habitué(e)"
+									style-class="label_modal" />
+								<b:inputText value="#{mbPanier.mbConnexion.login}"
+									placeholder="Identifiant (e-mail ou pseudonyme)"
+									styleClass="inputEmailPanier" />
+								<b:inputSecret value="#{mbConnexion.password}"
+									placeholder="Mot de passe" />
+								<b:commandButton value="Identifiez-vous"
+									action="#{mbPanier.connect()}"
+									styleClass="boutonIdentifierPanier" />
+								<b:commandButton value="Mot de passe oublié ?"
+									styleClass="boutonMDPOubliePanier" />
+							</b:column>
+							<b:column span="half">
+								<b:label text="Inscription"
+									style-class="label_modal label_header" />
+								<br />
+								<b:label text="C'est la toute première fois"
+									style-class="label_modal" />
+								<b:inputText value="#{mbPanier.mbConnexion.newMembre.mail}"
+									placeholder="E-mail *"
+									styleClass="inputEmailPanier inputPanier" />
+								<b:inputSecret
+									value="#{mbPanier.mbConnexion.newMembre.motDePasse}"
+									placeholder="Mot de passe *" span="6" />
+								<b:inputSecret placeholder="Confirmation *" span="6" />
+								<b:inputText value="#{mbPanier.mbConnexion.newMembre.nom}"
+									placeholder="Nom" styleClass="inputPanier" />
+								<b:inputText value="#{mbPanier.mbConnexion.newMembre.prenom}"
+									placeholder="Prénom" styleClass="inputPanier" />
+								<b:inputText
+									value="#{mbPanier.mbConnexion.newMembre.pseudonyme}"
+									placeholder="Pseudo" styleClass="inputPanier" />
+								<b:datepicker
+									value="#{mbPanier.mbConnexion.newMembre.dateNaissance}"
+									label="Date de Naissance" styleClass="inputPanier" />
+								<b:commandButton value="Enregistrer"
+									styleClass="EnregistrerInscriptionPanier" />
+							</b:column>
+						</b:row>
+
+					</b:container>
+				</h:panelGroup>
+
+
+
+
+				<!-- Form Adresse -->
+				<h:panelGroup id="formAdressePanier"
+					rendered="#{mbPanier.compteurPagePourRendered == 2}">
+					<b:panel rendered="#{mbPanier.compteurPagePourRendered == 2}"
+						styleClass="adressePanier">
+						<h:outputLabel value="Saisir une adresse de livraison"
+							styleClass="titreAdresse" />
+						<b:row styleClass="rowInput">
+
+							<b:inputText col-md="6" style-class="numeroRue"
+								placeholder="Entrez votre numéro de rue" label="Numéro de rue"
+								value="#{mbPanier.adresseLivraisonduMembre.numeroRue}" />
+							<b:inputText col-md="6" style-class="rue"
+								placeholder="Entrez votre rue" label="Rue"
+								value="#{mbPanier.adresseLivraisonduMembre.libelleRue}" />
+
+						</b:row>
+						<b:row styleClass="rowInput">
+							<b:column>
+								<b:inputText style-class="codePostal"
+									placeholder="Entrez votre code postal" label="Code Postal"
+									value="#{mbPanier.adresseLivraisonduMembre.codePostal}" />
+								<!--  required="true"-->
+							</b:column>
+							<b:column>
+								<b:inputText style-class="ville"
+									placeholder="Entrez votre ville" label="Ville"
+									value="#{mbPanier.adresseLivraisonduMembre.libelleVille}" />
+								<!--  required="true"-->
+							</b:column>
+
+						</b:row>
+						<b:row style-class="rowInputPays">
+
+							<b:inputText style-class="pays" placeholder="Entrez votre pays"
+								label="Pays" value="#{mbPanier.adresseLivraisonduMembre.pays}" />
+
+						</b:row>
+						<b:row styleClass="rowInputBoutonAdresseLiv">
+							<h:outputText
+								value="Renseigner une adresse de facturation différente : " />
+							<b:commandButton value="Saisir adresse" look="primary"
+								action="#{mbPanier.afficherAdresseLivraison()}">
+							</b:commandButton>
+						</b:row>
+					</b:panel>
+				</h:panelGroup>
+
+				<h:panelGroup id="formAdresseLivraisonPanier">
+
+					<b:panel rendered="#{mbPanier.adresseLivraison == true}"
+						styleClass="adressePanier">
+						<h:outputLabel value="Saisir une adresse de facturation"
+							styleClass="titreAdresse" />
+						<b:row style-class="rowInput">
+
+							<b:inputText col-md="6" style-class="numeroRue"
+								placeholder="Entrez votre numéro de rue" label="Numéro de rue" />
+							<!--  -->
+
+
+							<b:inputText col-md="6" style-class="rue"
+								placeholder="Entrez votre rue" label="Rue" />
+							<!--  required="true"-->
+
+
+						</b:row>
+						<b:row style-class="rowInput">
+							<b:column>
+								<b:inputText style-class="codePostal"
+									placeholder="Entrez votre code postal" label="Code Postal" />
+							</b:column>
+							<b:column>
+								<b:inputText style-class="ville"
+									placeholder="Entrez votre ville" label="Ville" />
+								<!--  required="true"-->
+							</b:column>
+
+						</b:row>
+						<b:row style-class="rowInputPays">
+
+							<b:inputText style-class="pays" placeholder="Entrez votre pays"
+								label="Pays" />
+
+						</b:row>
+					</b:panel>
+				</h:panelGroup>
+
+				<!-- Form Paiement -->
+
+				<h:panelGroup id="formPaiement">
+					<h:panelGroup class="container"
+						rendered="#{mbPanier.compteurPagePourRendered == 3}">
+						<div class="row">
+							<div class="paymentCont">
+								<div class="headingWrap">
+									<h3 class="headingTop text-center">Selectionner votre
+										moyen de paiement</h3>
+
+								</div>
+								<b:panel class="paymentWrap" styleClass="paiementPanier">
+									<h:selectOneRadio value="#{mbPanier.moyenPaiementSelct.id}"
+										styleClass="rbMoyenPaiement">
+										<f:selectItems value="#{mbPanier.moyensPaiement}"
+											var="moyenPaiement"
+											itemLabel="#{moyenPaiement.libelle}  &nbsp; &nbsp;"
+											itemValue="#{moyenPaiement.id}" styleClass="rbMoyenPaiement">
+
+										</f:selectItems>
+									</h:selectOneRadio>
+									<b:inputText value="#{mbPanier.numeroCarte}"
+										label="Numéro de carte" maxlength="16"></b:inputText>
+									<b:dateTimePicker format="MM/YYYY" label="Date d'expiration"
+										value="#{mbPanier.dateExpiration}"></b:dateTimePicker>
+									<b:inputText value="#{mbPanier.crytogramme}"
+										label="Cryptogramme" maxlength="3"></b:inputText>
+									<b:commandButton action="#{mbPanier.annuler()}" look="warning"
+										value="Annuler" styleClass="boutonAnnuler"></b:commandButton>
+									<b:commandButton action="#{mbPanier.passerCommande()}"
+										value="Passer la commande" styleClass="boutonPasserCommande"></b:commandButton>
+								</b:panel>
+
+							</div>
+
+						</div>
+					</h:panelGroup>
+				</h:panelGroup>
+				<h:panelGroup id="formFin" style-class="paiementPanier">
+					<h:panelGroup rendered="#{mbPanier.compteurPagePourRendered == 5}">
+						<b:panel>
+							<h1>Félicitations ! Votre commande a bien été enregistrée</h1>
+						</b:panel>
+						<b:panel look="info" collapsible="false" style-class="panelPanier">
+							<f:facet name="heading" class="header">
+								<b:row style-class="ligneHeader">
+									<b:column col-md="2" style-class="columnTitre">
+										<b:icon name="shopping-cart" />
+										<h:outputText value=" Vos produits" />
+									</b:column>
+									<b:column col-md="8">
+										<div class="empty"></div>
+									</b:column>
+									<b:column col-md="2">
+										<b:commandButton value="Continuer vos achats" icon="share-alt"
+											look="primary" style-class="boutonRetourAchat" />
+
+
+									</b:column>
+								</b:row>
+
+							</f:facet>
+
+
+							<ui:repeat var="commande"
+								value="#{mbPanier.listeCommandesMembre}">
+								<ui:repeat var="ligneCommande"
+									value="#{commande.lignesDeCommande}">
+									<b:row>
+										<b:column col-xs="2">
+											<b:image
+												value="resources/images/produitsArticles/#{ligneCommande.article.image}"
+												style-class="imageProduit" />
+										</b:column>
+										<b:column col-xs="4">
+											<b:row style-class="ligneProduit">
+												<h:outputText value="#{ligneCommande.article.titre}"
+													styleClass="nomArticle" />
+											</b:row>
+											<b:row style-class="ligneProduit">
+												<h:outputText
+													value="#{ligneCommande.article.boutique.membre.pseudonyme}"
+													styleClass="nomVendeur" />
+											</b:row>
+										</b:column>
+										<b:column col-xs="6">
+											<b:column col-xs="6" style-class="columnPrix">
+												<h:outputText value="#{ligneCommande.article.prix}"
+													styleClass="prix" />
+											</b:column>
+											<b:column col-xs="4">
+												<b:formGroup>
+													<h:outputText value="#{ligneCommande.quantite}" />
+												</b:formGroup>
+											</b:column>
+										</b:column>
+
+									</b:row>
+									<hr></hr>
+								</ui:repeat>
+							</ui:repeat>
+
+
+							<f:facet name="footer">
+								<b:row style-class="ligneTotal">
+									<b:column col-xs="9">
+
+										<h:outputText value="Total = #{mbPanier.prixTotal} €"
+											style-class="total" />
+
+									</b:column>
+									<b:column col-xs="3">
+
+
+									</b:column>
+
+								</b:row>
+
+							</f:facet>
+
+
+
+
+						</b:panel>
+					</h:panelGroup>
+				</h:panelGroup>
+
+				<h:panelGroup
+					rendered="#{((mbPanier.compteurPagePourRendered == 1) or (mbPanier.compteurPagePourRendered == 2))}">
+					<b:row style-class="ligneBoutons">
+						<b:commandButton offset-md="3" span="1" value="Précédent"
+							look="success" icon="chevron-left">
+							<f:ajax event="click" listener="#{mbPanier.UnePageEnArriere()}"
+								execute="formPagePaiement" render="containerCommande"></f:ajax>
+						</b:commandButton>
+						<b:commandButton offset-md="3" span="1" value="Suivant"
+							look="success" icon="chevron-right" iconAlign="right">
+							<f:ajax event="click" listener="#{mbPanier.UnePageEnAvant()}"
+								execute="formPagePaiement" render="containerCommande"></f:ajax>
+						</b:commandButton>
+					</b:row>
+				</h:panelGroup>
+			</b:form>
+		</b:container>
+	</ui:define>
+	<ui:define name="jsPage">
+		<script src="resources/js/pagePanier.js"></script>
+	</ui:define>
+</ui:composition>
+</html>

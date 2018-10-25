@@ -1,0 +1,198 @@
+<!DOCTYPE html >
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:jsf="http://java.sun.com/jsf" xmlns:b="http://bootsfaces.net/ui">
+
+<h:head>
+	<title><ui:insert name="titre"></ui:insert></title>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<!-- Bootstrap core CSS -->
+	<link rel="stylesheet" href="webjars/bootstrap/3.3.7/css/bootstrap.css" />
+	<link href="resources/css/master_page.css" rel="stylesheet"
+		type="text/css" />
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+	<script src="webjars/bootstrap/3.3.7/js/bootstrap.js"></script>
+	<!--  css sheet for page -->
+	<ui:insert name="cssPage"></ui:insert>
+</h:head>
+<body>
+	<!-- Site header -->
+	<b:navBar brand-img="resources/images/yatta.png"
+		brandHref="/Yatta_Web#{mbNavigation.pageAccueil}" fluid="true"
+		position="top" sticky="true" styleClass="header"
+		brand-style="position:relative;width: auto; height:8vh;"
+		brand-img-style="width: auto;padding: 0;margin: -2vh;height: 8vh;position: relative;">
+		<b:form id="searchFormMaster"
+			styleClass="navbar-form navbar-left formRechercheMaster"
+			role="search" fluid="true">
+			<b:selectMultiMenu nonSelectedText="Catégories"
+				value="#{mbApplication.catSelected}" fluid="true"
+				styleClass="dropDownCategories" look="link" numberDisplayed="1">
+				<f:selectItems var="cat" value="#{mbApplication.categories}"
+					itemValue="#{cat.libelle}" itemLabel="#{cat.libelle}" />
+			</b:selectMultiMenu>
+			<b:inputText styleClass="form-control rechercheInputText"
+				placeholder="Recherche" fluid="true" />
+			<b:commandButton id="searchButtonMaster" styleClass="form-control"
+				action="#{mbMaster.rechercher()}" iconAwesome="search" fluid="true"
+				look="link" />
+		</b:form>
+		<b:form id="connexionFormMaster"
+			styleClass="navbar-form navbar-right formConnexionMaster"
+			fluid="true">
+			<h:outputLabel value=" #{mbPanier.nbArticles} article(s)" />
+			<b:commandButton icon-size="2x" iconAwesome="shopping-cart"
+				look="link" action="#{mbNavigation.goToPanier()}" />
+			<b:dropMenu styleClass="buttonConnexionHeader" look="link" value=""
+				icon="user" icon-size="1x">
+				<b:navLink header="Bonjour !" disabled="true"
+					rendered="#{mbNavigation.user == null}" />
+				<b:navLink value="Connexion" look="link"
+					onclick="$('.fenetreModalConnexion').show()"
+					dismiss=".fenetreModalConnexion"
+					rendered="#{mbNavigation.user == null}" />
+				<b:navLink header="Bonjour #{mbNavigation.user.pseudonyme} !"
+					rendered="#{mbNavigation.user != null}" />
+				<b:navCommandLink rendered="#{mbNavigation.user != null}"
+					value="Déconnexion" action="#{mbConnexion.deconnexion()}"
+					iconAwesome="power-off" />
+				<b:navCommandLink rendered="#{mbNavigation.user != null}"
+					value="Mon profil" action="#{mbMaster.goToProfil()}"
+					iconAwesome="home" />
+				<b:navCommandLink rendered="#{mbNavigation.user != null}"
+					value="Mes commandes" action="#{mbMaster.goToCommandes()}"
+					iconAwesome="shopping-cart" />
+				<b:navLink header="Gestion"
+					rendered="#{mbNavigation.user != null and (mbProfil.boutiqueProfil != null or mbProfil.espaceTutoProfil != null)}" />
+				<b:navCommandLink
+					rendered="#{mbNavigation.user != null and mbProfil.boutiqueProfil != null}"
+					value="Boutique" action="#{mbMaster.goToBoutique()}"
+					iconAwesome="gift" />
+				<b:navCommandLink
+					rendered="#{mbNavigation.user != null and mbProfil.espaceTutoProfil != null}"
+					value="Espace Tuto" action="#{mbMaster.goToEspaceTuto()}"
+					iconAwesome="scissors" />
+			</b:dropMenu>
+		</b:form>
+	</b:navBar>
+	<!-- Site Main Content -->
+	<div class="content-area">
+
+		<!-- Main content master page - Main Section-->
+		<div class="site-main">
+			<ui:insert name="mainSection"></ui:insert>
+		</div>
+	</div>
+
+	<!-- Site Footer -->
+
+	<b:navBar brand="&#169; Tous les droits réservés par Yatta Groupe"
+		fluid="true" sticky="bottom" styleClass="footerColors brandFooter">
+		<b:form id="footerFormMaster"
+			class="footerColors navbar-form navbar-center" fluid="true">
+			<b:navbarLinks class="footerColors">
+				<b:navLink class="footerColors" value="A propos" href="#" />
+				<b:navLink class="footerColors" value="Contact" href="#" />
+				<b:navLink class="footerColors" value="Conditions d'utilisation"
+					href="#" />
+				<b:navLink class="footerColors" value="Aide" href="#" />
+			</b:navbarLinks>
+		</b:form>
+		<b:form id="reseauxSociauxForm"
+			class="footerColors navbar-form navbar-right hidden-md hidden-sm hidden-xs"
+			fluid="true">
+			<b:navbarLinks class="footerColors">
+				<b:navLink class="footerColors" iconAwesome="facebook-official"
+					href="#" icon-size="2x" />
+				<b:navLink class="footerColors" iconAwesome="google-plus" href="#"
+					icon-size="2x" />
+				<b:navLink class="footerColors" iconAwesome="twitter" href="#"
+					icon-size="2x" />
+				<b:navLink class="footerColors" iconAwesome="youtube" href="#"
+					icon-size="2x" />
+			</b:navbarLinks>
+
+		</b:form>
+		<b:modal styleClass="fenetreModalConnexion" closable="true">
+			<b:form id="modalMasterForm">
+				<b:container fluid="true">
+					<b:row class="modalHeader">
+						<b:column span="half">
+							<b:label text="Connexion" style-class="label_modal label_header" />
+							<!-- 							<br /> -->
+							<b:label text="Vous êtes un(e) habitué(e)"
+								style-class="label_modal" />
+							<b:inputText value="#{mbConnexion.login}"
+								placeholder="Identifiant (e-mail ou pseudonyme)"
+								style="margin-top:1vh" />
+							<b:inputSecret value="#{mbConnexion.password}"
+								placeholder="Mot de passe" />
+
+							<b:commandButton value="Identifiez-vous"
+								style-class="bouton_modal" style="margin-right:2vw;"
+								action="#{mbConnexion.connect()}" />
+
+							<b:commandButton value="Mot de passe oublié ?"
+								style-class="bouton_modal" />
+
+						</b:column>
+						<b:column span="half">
+							<b:label text="Inscription"
+								style-class="label_modal label_header" style="margin-top:1vh;" />
+							<!-- 							<br /> -->
+							<b:label text="C'est la toute première fois"
+								style-class="label_modal" />
+							<b:inputText value="#{mbConnexion.newMembre.mail}"
+								placeholder="E-mail *" style="margin-top:1vh" />
+							<b:inputSecret value="#{mbConnexion.newMembre.motDePasse}"
+								placeholder="Mot de passe *" />
+							<b:inputSecret placeholder="Confirmation *" />
+							<b:inputText value="#{mbConnexion.newMembre.nom}"
+								placeholder="Nom" />
+							<b:inputText value="#{mbConnexion.newMembre.prenom}"
+								placeholder="Prénom" />
+							<b:inputText value="#{mbConnexion.newMembre.pseudonyme}"
+								placeholder="Pseudo" />
+							<b:datepicker value="#{mbConnexion.newMembre.dateNaissance}"
+								label="Date de Naissance" style="color:grey;"/>
+							<b:commandButton value="Enregistrer" style-class="bouton_modal" />
+						</b:column>
+					</b:row>
+
+				</b:container>
+			</b:form>
+		</b:modal>
+		<b:modal styleClass="fenetreModalQuantite" closable="true">
+			<b:form id="modalQuantiteForm">
+				<b:container fluid="true">
+					<b:row class="modalHeader">
+						<h3>Choississez la quantité désirée</h3>
+					</b:row>
+					<b:row>
+						<b:touchSpin col-md="3" value="#{mbPanier.quantite}" min="1"
+							step="1"></b:touchSpin>
+					</b:row>
+					<b:row>
+						<b:column col-md="8">
+						</b:column>
+						<b:column col-md="4">
+							<b:commandButton value="Valider" look="success"
+								action="#{mbPanier.ajouterAuPanier()}"></b:commandButton>
+							<b:commandButton value="Annuler" look="warning"
+								action="#{mbPanier.annulerQuantite()}"></b:commandButton>
+						</b:column>
+					</b:row>
+				</b:container>
+			</b:form>
+		</b:modal>
+	</b:navBar>
+	<script src="resources/js/fermetureModal.js"></script>
+	<ui:insert name="jsPage"></ui:insert>
+</body>
+</html>

@@ -1,0 +1,39 @@
+@charset "UTF-8";
+
+.panelTutoriel {
+background-color: white;
+border: 1px solid #C6B2E0;
+}
+
+img{
+	width: 60%;
+}
+
+.ligneVideo {
+	text-align: center;
+}
+
+.ligneTutoriel {
+	text-align: center;
+}
+
+.ligneCreateur{
+	text-align: center;
+}
+
+.nomTutoriel{
+	font-size: 20px;
+	
+}
+
+.ligneCategorie{
+	text-align: center;
+}
+
+.nomCreateur {
+	font-size: 15px;
+	
+}
+.ligneFav{
+	padding-top: 1.5vh;
+}

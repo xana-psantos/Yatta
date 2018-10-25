@@ -1,0 +1,135 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:b="http://bootsfaces.net/ui">
+<ui:composition template="/master-page.xhtml">
+	<ui:define name="titre">Espace tutoriels</ui:define>
+	<ui:define name="cssPage">
+		<link href="resources/css/espaceTutoriels.css" rel="stylesheet"
+			type="text/css" />
+	</ui:define>
+	<ui:define name="mainSection">
+		<b:container fluid="true" id="content_espaceTuto">
+			<b:row id="banner">
+				<b:image
+					value="https://img1.etsystatic.com/170/0/9183638/isbl_1680x420.24711259_14yop8f3.jpg"
+					id="img_banner" col-xs="12" />
+				<b:column offset-xs="0" offset-sm="1" offset="2" col-xs="12"
+					col-sm="9" style="margin-top:-5vh">
+					<h:outputLabel id="nom_EspaceTuto" value="nom_EspaceTuto" />
+				</b:column>
+			</b:row>
+		</b:container>
+		<b:container>
+			<b:row>
+				<b:panel collapsible="false" styleClass="PanelDernierTuto">
+					<f:facet name="heading" class="type_heading">
+						<b:row>
+							<b:panelGrid colSpans="12" class="type_heading">
+								<span class="titre_section_resultats"
+									style="font-size: large; text-align: left">Dernier
+									tutoriel</span>
+							</b:panelGrid>
+						</b:row>
+					</f:facet>
+					<b:row>
+						<div class="col-md-3 d-inline-block">
+								<b:panel style-class="panelTutoriel">
+									<b:row style-class="ligneVideo">
+										<div class="embed-responsive embed-responsive-16by9">
+											<iframe class="embed-responsive-item"
+												src="https://www.youtube.com/embed/#{mbEspaceTuto.tutorielLePlusRecent.contenu}?rel=0"></iframe>
+										</div>
+
+									</b:row>
+									<b:row style-class="ligneArticle">
+										<h:outputText value="#{mbEspaceTuto.tutorielLePlusRecent.titre}"
+											styleClass="nomTutoriel" />
+									</b:row>
+									<b:row style-class="ligneCreateur">
+										<h:outputText value="#{mbEspaceTuto.tutorielLePlusRecent.espaceTutoriel.membre.pseudonyme}"
+											styleClass="nomCreateur" />
+									</b:row>
+									<b:row style-class="ligneConsulter">
+										<b:column medium-screen="9">
+										</b:column>
+										<b:column medium-screen="3">
+											<b:button icon="heart" look="danger" />
+										</b:column>
+
+
+									</b:row>
+
+								</b:panel>
+							</div>
+						<div class="col-md-9 d-inline-block">text text text</div>
+
+					</b:row>
+				</b:panel>
+				<b:panel collapsible="false">
+					<f:facet name="heading" class="type_heading">
+						<b:row>
+							<b:panelGrid colSpans="12" class="type_heading">
+								<span class="titre_section_resultats"
+									style="font-size: large; text-align: left">Tous les
+									tutoriels de nom_membre</span>
+							</b:panelGrid>
+						</b:row>
+					</f:facet>
+					<b:row>
+						<ui:repeat var="tutoriel" value="#{mbEspaceTuto.tutoriels}">
+							<div class="col-md-3 d-inline-block">
+								<b:panel style-class="panelTutoriel">
+									<b:row style-class="ligneVideo">
+										<div class="embed-responsive embed-responsive-16by9">
+											<iframe class="embed-responsive-item"
+												src="https://www.youtube.com/embed/#{tutoriel.contenu}?rel=0"></iframe>
+										</div>
+
+									</b:row>
+									<b:row style-class="ligneArticle">
+										<h:outputText value="#{tutoriel.titre}"
+											styleClass="nomTutoriel" />
+									</b:row>
+									<b:row style-class="ligneCreateur">
+										<h:outputText value="#{tutoriel.espaceTutoriel.membre.pseudonyme}"
+											styleClass="nomCreateur" />
+									</b:row>
+									<b:row style-class="ligneConsulter">
+										<b:column medium-screen="9">
+										</b:column>
+										<b:column medium-screen="3">
+											<b:button icon="heart" look="danger" />
+										</b:column>
+
+
+									</b:row>
+
+								</b:panel>
+							</div>
+						</ui:repeat>
+					</b:row>
+
+
+
+
+
+
+					<b:row>
+						<b:panelGrid offset="11" colSpans="12" class="type_heading">
+							<b:button look="primary" icon="plus" value="" />
+						</b:panelGrid>
+					</b:row>
+				</b:panel>
+			</b:row>
+		</b:container>
+
+
+
+
+
+	</ui:define>
+</ui:composition>
+</html>

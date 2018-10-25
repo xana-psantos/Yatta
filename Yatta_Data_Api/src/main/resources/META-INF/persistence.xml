@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
+		http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
+	version="2.1">
+	<persistence-unit name="Yatta_Unit" transaction-type="RESOURCE_LOCAL">
+		<class>fr.afcepf.al31.yatta.entities.Administrateur </class>
+		<class>fr.afcepf.al31.yatta.entities.Adresse </class>
+		<class>fr.afcepf.al31.yatta.entities.AdresseMembre </class>
+		<class>fr.afcepf.al31.yatta.entities.Article </class>
+		<class>fr.afcepf.al31.yatta.entities.ArticleFavoris </class>
+		<class>fr.afcepf.al31.yatta.entities.Boutique </class>
+		<class>fr.afcepf.al31.yatta.entities.Categorie </class>
+		<class>fr.afcepf.al31.yatta.entities.Commande </class>
+		<class>fr.afcepf.al31.yatta.entities.Commentaire </class>
+		<class>fr.afcepf.al31.yatta.entities.CompteBancaire </class>
+		<class>fr.afcepf.al31.yatta.entities.EspaceTutoriel </class>
+		<class>fr.afcepf.al31.yatta.entities.Favoris </class>
+		<class>fr.afcepf.al31.yatta.entities.LigneDeCommande </class>
+		<class>fr.afcepf.al31.yatta.entities.Membre </class>
+		<class>fr.afcepf.al31.yatta.entities.Message </class>
+		<class>fr.afcepf.al31.yatta.entities.MoyenPaiement </class>
+		<class>fr.afcepf.al31.yatta.entities.Note </class>
+		<class>fr.afcepf.al31.yatta.entities.Personne </class>
+		<class>fr.afcepf.al31.yatta.entities.Produit </class>
+		<class>fr.afcepf.al31.yatta.entities.SuspensionBoutique </class>
+		<class>fr.afcepf.al31.yatta.entities.SuspensionEspaceTutoriel </class>
+		<class>fr.afcepf.al31.yatta.entities.SuspensionMembre </class>
+		<class>fr.afcepf.al31.yatta.entities.Tutoriel </class>
+		<class>fr.afcepf.al31.yatta.entities.TutorielFavoris </class>
+	</persistence-unit>
+</persistence>

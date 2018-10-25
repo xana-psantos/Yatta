@@ -1,0 +1,150 @@
+/*[class*="col-"], footer {
+  text-align: center;
+}*/
+.titre_section_resultats {
+	text-align: left;
+}
+
+.affichage_recherche {
+	padding-left: 18em;
+}
+
+.panel.resultat_recherche {
+	border: 0;
+	background: none;
+}
+
+.type_heading {
+	padding-left: 2em;
+	padding-right: 2em;
+}
+
+.form-check {
+	text-align: left;
+	padding-left: 1em;
+}
+
+#menu_recherche {
+	background-color: whitesmoke;
+	padding-left: 2em;
+}
+
+.navbar-fixed-left {
+	width: 17em;
+	position: fixed;
+	border-radius: 0;
+	height: 100%;
+}
+
+.navbar-fixed-left .navbar-nav>li {
+	float: none;
+	width: 139px;
+}
+
+.navbar-fixed-left+.container {
+	padding-left: 160px;
+}
+
+.navbar-fixed-left .navbar-nav>li>.dropdown-menu {
+	margin-top: -50px;
+	margin-left: 140px;
+}
+
+/* Cartouches */
+.panelEspaceTuto .panel-body, .panelBoutique .panel-body {
+	padding-top: 0px !important;
+}
+
+.panelMembre, .panelArticle, .panelTutoriel, .panelEspaceTuto,
+	.panelEspaceTuto, .panelBoutique {
+	background-color: white;
+	border: 1px solid #C6B2E0;
+	text-align: center;
+}
+
+.ligneVideo, .ligneTutoriel, .ligneCreateur, .ligneCategorie,
+	.ligneEspaceTuto, .ligneEditeur, .ligneConsulterTuto, .ligneCategories,
+	.ligneBoutiqueEspaceTuto, .ligneImageMembre, .ligneMembre, .ligneImage,
+	.ligneArticle, .ligneDesc, .ligneVendeur, .ligneBoutique,
+	.ligneProprietaireBoutique, .ligneConsulter, .ligneCategories {
+	text-align: center;
+}
+
+.nomTutoriel, .nomEspaceTuto, .nomMembre, .nomArticle, .nomBoutique {
+	font-family: 'Lato', sans-serif;
+	font-size: 1.1em;
+	padding-top: 1vh;
+}
+
+.nomCreateur, .nomEditeur, .nomProprietaire, .nomVendeur {
+	font-size: 1.1em;
+}
+
+.labelNomBoutiqueMembre, .labelNomEspaceTutorielMembre,
+	.labelDateInscription {
+	font-size: 1em;
+}
+
+.labelDateInscription {
+	font-style: italic;
+}
+
+.ligneCategories {
+	min-height: 10vh;
+	padding-top: 1vh;
+}
+
+.lignePrix {
+	padding-top: 1vh;
+}
+
+.ligneCategorie {
+	padding-bottom: 1vh;
+}
+
+.prix {
+	font-size: 1.4em;
+	margin-top: -2vh;
+	padding-bottom: 2vh;
+}
+
+.badge {
+	background-color: #F55F4C !important;
+	margin-left: 0.7em;
+}
+
+.imageEspaceTuto {
+	width: 100%;
+	height: 13vh;
+	background-size: auto 100%;
+	background-repeat: no-repeat;
+}
+
+.imageProduit {
+	height: 30vh;
+	width: 35vh;
+	padding: 0;
+	border: 1px solid #C6B2E0;
+	border-radius: 7%;
+}
+
+.imageArticle, .imageBoutique {
+	width: 100%;
+	background-size: auto 100%;
+	background-repeat: no-repeat;
+}
+
+.imageBoutique {
+	height: 13vh;
+}
+
+.imageArticle {
+	height: 20vh;
+	padding-left: 2em;
+	padding-right: 2em;
+}
+
+.img-fluid.membre {
+	width: 60%;
+	border-radius: 50em;
+}

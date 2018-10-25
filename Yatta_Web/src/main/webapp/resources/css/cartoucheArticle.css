@@ -1,0 +1,66 @@
+@charset "UTF-8";
+
+
+.panelArticle {
+
+background-color: white;
+border: 1px solid #C6B2E0;
+}
+
+
+
+.ligneImage {
+	text-align: center;
+}
+.imageProduit {
+	height: 30vh;
+	width: 35vh; 
+	padding: 0;
+	border: 1px solid #C6B2E0;
+	border-radius: 7%;
+}
+.ligneArticle, .ligneDesc {
+	text-align: center;
+}
+
+.ligneVendeur{
+	text-align: center;
+	margin-top: 1vh;
+}
+
+.nomArticle {
+	font-family: 'Lato', sans-serif;
+	font-size: 1.1em;
+	
+}
+.ligneStars {
+	text-align: center;
+	margin-top: 1vh;
+}
+.nomVendeur {
+
+	font-size: 1.1em;
+	font-weight: bold;
+	margin-bottom: 1vh;
+}
+.ligneDesc {
+	padding: 0 2vw;
+}
+.lignePrix{
+	padding-top: 1vh;
+}
+.columnPrix {
+	padding-top: 1vh;
+}
+.prix{
+	font-size: 1.8em;
+	margin-top: -2vh;
+	padding-bottom: 2vh;
+}
+
+.imageArticle{
+	width : 100%;
+	height: 20vh;
+	background-size: auto 100%;
+	background-repeat: no-repeat;
+}

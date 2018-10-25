@@ -1,0 +1,49 @@
+<!DOCTYPE html >
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:b="http://bootsfaces.net/ui">
+<ui:composition template="/master-page.xhtml">
+	<ui:define name="titre">Yatta</ui:define>
+	<ui:define name="cssPage">
+		<link href="resources/css/accueil.css" rel="stylesheet"
+			type="text/css" />
+	</ui:define>
+	<ui:define name="mainSection">
+
+		<b:container fluid="true" id="containerBody">
+			<b:row id="titre_accueil">
+				<!-- 				<h1>Yatta</h1> -->
+				<b:image value="resources/images/accueil/yatta-titre.png"
+					width="250rem" />
+			</b:row>
+			<b:row style="text-align:center;">
+				<p class="lead">Savoir-faire et partage</p>
+			</b:row>
+
+			<b:row id="boutiqueTutoAccueil">
+
+				<b:column style-class="boutique_card_accueil" col-xs="12" col-md="4"
+					offset-md="2">
+					<b:panel style-class="image_espace" ajax="true">
+						<f:ajax event="click" listener="#{mbAccueil.goToPageRecherche()}"></f:ajax>
+						<h1>Boutiques</h1>
+
+						<h3>Achetez les créations des membres&#160;!</h3>
+					</b:panel>
+
+				</b:column>
+				<b:column style-class="tutoriels_card_accueil" col-xs="12" col-md="4">
+					<b:panel style-class="image_espace" ajax="true">
+						<f:ajax event="click" listener="#{mbAccueil.goToPageRecherche()}"></f:ajax>
+						<h1>Tutoriels</h1>
+
+						<h3>Retrouvez les tutoriels créatifs des membres&#160;!</h3>
+					</b:panel>
+				</b:column>
+			</b:row>
+		</b:container>
+	</ui:define>
+</ui:composition>
+</html>

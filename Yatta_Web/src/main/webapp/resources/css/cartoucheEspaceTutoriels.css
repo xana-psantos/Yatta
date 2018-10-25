@@ -1,0 +1,51 @@
+@charset "UTF-8";
+
+.panelEspaceTuto .panel-body {
+	padding-top: 0px !important;
+}
+
+.badge {
+	background-color: #F55F4C !important;
+	margin-left: 0.7em;
+}
+
+.panelEspaceTuto {
+	background-color: white;
+	border: 1px solid #C6B2E0;
+}
+
+img {
+	width: 60%;
+}
+
+.ligneEspaceTuto {
+	text-align: center;
+}
+
+.ligneEditeur {
+	text-align: center;
+}
+
+.ligneConsulterTuto {
+	text-align: center;
+}
+
+.ligneCatégories {
+	text-align: center;
+	padding-bottom: 1em;
+}
+
+.nomEspaceTuto {
+	font-size: 20px;
+}
+
+.nomEditeur {
+	font-size: 15px;
+}
+
+.imageEspaceTuto {
+	width: 100%;
+	height: 13vh;
+	background-size: auto 100%;
+	background-repeat: no-repeat;
+}

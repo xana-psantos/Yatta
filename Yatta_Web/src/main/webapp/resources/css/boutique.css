@@ -1,0 +1,222 @@
+@import url('https://fonts.googleapis.com/css?family=Lato|Open+Sans');
+
+/*  Mini CSS reset:  */
+* {
+  padding: 0;
+  margin: 0;
+  font-family: 'Open Sans', sans-serif;
+}
+label, a {
+	font-family: 'Lato', sans-serif;
+}
+div#content_boutique {
+	padding: 0;
+}
+
+div#banner {
+	margin-bottom: 2vh;
+	display:flex;
+	align-items: center;
+	height: 100%;
+	width: 100%;
+	_text-align: center;
+}
+img.img_banner {
+	_max-height: 40%;
+	_max-width:40%;
+	margin: 0 auto;
+}
+
+#nom_boutique {
+	z-index: 2000 !important;
+	font-size: 2em;
+	_font-family: 'Lato', sans-serif;
+	padding: 0 1em;
+	_background: rgba(255, 255, 255, 0.3);
+	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+49,ffffff+49,ffffff+56,ffffff+56,ffffff+58&0+0,1+43 */
+background: -moz-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 43%, rgba(255,255,255,1) 49%, rgba(255,255,255,1) 56%, rgba(255,255,255,1) 58%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 43%,rgba(255,255,255,1) 49%,rgba(255,255,255,1) 56%,rgba(255,255,255,1) 58%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 43%,rgba(255,255,255,1) 49%,rgba(255,255,255,1) 56%,rgba(255,255,255,1) 58%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
+}
+div#container_desc_boutique {
+
+}
+div#div_desc_boutique {
+	_background-color: white;
+	_height: 30vh;
+	_overflow: auto;
+}
+div#nb_ventes_annees {
+	padding-top: 3em;
+	color: #9a9a9a;
+}
+div#nb_ventes_annees > label:not(:nth-child(2)) {
+	padding:0 1em;
+	margin-bottom:1em;
+	border-right:1px solid #9a9a9a;
+}
+div#nb_ventes_annees .depuis_date {
+	border:0;
+}
+div#nb_ventes_annees label#annee_inscr {
+	margin-right:1em;
+}
+
+/*****left star icon******/
+div#nb_ventes_annees i.fa-star:first-of-type {
+	_padding-left:1em; /*appliqué sur tout*/
+}
+
+/* *********PANEL DESC_BOUTIQUE HORROR CSS********* */
+.panel_desc_boutique {
+	margin-top: 2vh;
+	font-size: 1em;
+	font-weight: 200;
+	text-align: justify;
+}
+div.panel_desc_boutique.panel.panel-default {
+	_color:red; /*appliqué à panel content*/
+	background-color: white;
+	border: 0; /*tue border*/
+	font-size: 1em;
+	font-weight: 200;
+	
+}
+.panel_desc_boutique.panel-default > .panel-heading {
+	background-color: white;
+	_color:red;
+	text-align: justify;
+	text-decoration: none;
+	font-weight: 200;
+}
+div.panel_desc_boutique a.panel-title-link {	
+	font-weight: 200;
+	line-height: 1.25em;	
+}
+.panel_desc_boutique a.panel-title-link:hover, a.panel-title-link:focus, a.panel-title-link:active {	
+	text-decoration: none;	
+}
+/*****chevron icon*****/
+.panel_desc_boutique .panel-heading a:after {
+	margin-top: 0.5em;
+}
+/****partie visible****/
+.panel_desc_boutique.panel-title {
+	font-weight: 200;
+	
+}
+/****partie cachée****/
+div.panel_desc_boutique .panel-body {
+	padding-top:0;
+	font-weight: 200;
+}
+div.panel_desc_boutique.panel-default > .panel-heading + .panel-collapse > .panel-body {
+	border:0; /*tue border entre les deux partie */
+	text-align: justify;
+	_font-weight: 400;
+}
+/*plus utilisé:
+p.justifie {
+	text-align: justify;
+	padding: 1em 2em;
+}*/
+
+/* ***************BLOQUE DESC_BOUTIQUE**************** */
+#desc_boutique {
+	_margin-top: 100px;
+	
+}
+
+/* *******DIV PROPRIETAIRE******* */
+div#div_avatar_nom_membre {
+	_background-color: white;
+	_height: 30vh;
+	padding: 2em;
+	_overflow: auto;
+}
+div.panelProprietaire label:first-child {
+	text-transform: uppercase;
+	color: #9a9a9a;
+	_font-weight: lighter;
+	margin-bottom: 2vh;
+}
+#avatar_membre {
+	border-radius: 50%;
+	text-align: center;
+	width: 130px; 
+	height: 130px;
+	margin-bottom: 2vh;
+}
+span#nom_membre {
+	margin-top: 1vh;
+	font-weight: bold;
+	_text-align: center; /*marche pas, besoin de bootstrap*/
+}
+#div_avatar_nom_membre a {
+	color: black;
+	text-decoration: none;
+}
+#div_avatar_nom_membre a:hover {
+	color: #2d9e8b;
+	text-decoration: underline;
+}
+#content_boutique .btn.btn-default, #content_boutique .btn.btn-default.btn_tuto {
+	min-width: 15vw;
+}
+#content_boutique .btn.btn-default.btn_tuto {
+	_margin-top:0.5vh;
+	_margin-bottom:2vh;
+	background-color:#00c9b1;
+	border-radius:5px;
+	color: white;
+	
+}
+#content_boutique .btn.btn-default:hover {
+	
+	-moz-box-shadow: 1px 1px 10px 0px #cfcfcf;
+	-webkit-box-shadow: 1px 1px 10px 0px #cfcfcf;
+	-o-box-shadow: 1px 1px 10px 0px #cfcfcf;
+	box-shadow: 1px 1px 10px 0px #cfcfcf;
+	filter:progid:DXImageTransform.Microsoft.Shadow(color=#cfcfcf, Direction=134, Strength=10);
+	
+}
+#content_boutique .btn.btn-default.btn_tuto:hover {
+	background-color: #60ffe9;	
+	color:black;
+}
+
+/*****************PANEL ARTICLES*************************/
+.panelArticle:hover {
+	-moz-box-shadow: 1px 1px 20px 5px #c0c0c0;
+	-webkit-box-shadow: 1px 1px 20px 5px #c0c0c0;
+	-o-box-shadow: 1px 1px 20px 5px #c0c0c0;
+	box-shadow: 1px 1px 20px 5px #c0c0c0;
+	filter:progid:DXImageTransform.Microsoft.Shadow(color=#c0c0c0, Direction=134, Strength=20);
+	cursor: pointer;
+}
+.container_article {
+	height:50vh;
+	margin-bottom:10vh;
+}
+.ligneImage {
+	margin:auto;
+	_width:60%;
+}
+
+@media (max-width: 970px) {
+    .btn.btn-default, .btn.btn-default.btn_tuto {
+	min-width: 18vw;
+}
+}
+@media (max-width: 850px) {
+    .btn.btn-default, .btn.btn-default.btn_tuto {
+	min-width: 20vw;
+}
+}
+@media (max-width: 650px) {
+   
+    .btn.btn-default, .btn.btn-default.btn_tuto {
+	min-width: 22vw;
+	}
+}

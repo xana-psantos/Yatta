@@ -1,0 +1,147 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+<ui:composition template="/master-page.xhtml">
+	<ui:define name="titre">Yatta</ui:define>
+	<ui:define name="cssPage">
+		<link href="resources/css/article.css" rel="stylesheet"
+			type="text/css" />
+	</ui:define>
+	<ui:define name="mainSection">
+		<b:form id="formArticle">
+			<b:container fluid="true">
+
+				<div class="row row-article">
+					<div class="col-md-4">
+						<div class="col-md-12" id="container_image_article">
+							<b:image
+								value="resources/images/produitsArticles/#{mbArticle.article.image}"
+								class="img-responsive image_article" />
+						</div>
+					</div>
+					<div class="col-md-8">
+						<b:tabView activeIndex="#{mbArticle.activeIndex}">
+							<b:tab title="Description">
+								<div class="col-md-12" id="details_article">
+									<h3>#{mbArticle.article.titre}</h3>
+									<a>#{mbArticle.article.boutique.membre.pseudonyme}</a>
+									<h3>#{mbArticle.article.prix} €</h3>
+									<div id="note_article">
+										<b:iconAwesome name="fa-star"
+											rendered="#{mbArticle.noteMoyenne >= 1}" />
+										<b:iconAwesome name="fa-star"
+											rendered="#{mbArticle.noteMoyenne >= 2}" />
+										<b:iconAwesome name="fa-star"
+											rendered="#{mbArticle.noteMoyenne >= 3}" />
+										<b:iconAwesome name="fa-star"
+											rendered="#{mbArticle.noteMoyenne >= 4}" />
+										<b:iconAwesome name="fa-star"
+											rendered="#{mbArticle.noteMoyenne >= 5}" />
+										<b:iconAwesome name="fa-star-half-o"
+											rendered="#{mbArticle.noteMoyenne > mbArticle.noteMoyenne.intValue()}" />
+										<h:outputLabel
+											value="(basé sur #{mbArticle.notes.size()} notes)"
+											style="margin-left:0.5vw" />
+									</div>
+
+									<p>#{mbArticle.article.description}</p>
+
+
+									<b:panelGrid colSpans="3,9" size="md">
+										<b:touchSpin min="0" max="200" step="1"
+											value="#{mbPanier.quantite}" />
+									</b:panelGrid>
+
+									<b:commandButton value="Ajouter au panier" icon="shopping-cart" look="success"
+										action="#{mbPanier.ajouterAuPanier(mbArticle.article, mbPanier.quantite)}" />
+								</div>
+							</b:tab>
+							<b:tab title="Commentaires">
+								<div class="row row-commentaire">
+									<div class="comments">
+
+
+										<ui:repeat var="comment" value="#{mbArticle.commentaires}">
+											<div class="comment-wrap">
+
+												<div class="photo">
+													<b:image
+														value="resources/images/personne/#{comment.membre.photo}"
+														styleClass="avatar" />
+												</div>
+												<div class="comment-block">
+													<h:outputText value="#{comment.contenu}"
+														styleClass="comment-text" />
+													<div class="bottom-comment">
+														<!-- *****************POSTE LE******************** -->
+
+														<h:outputLabel value="posté le" styleClass="comment-date" />
+														<h:outputLabel value="#{comment.dateEmission}"
+															styleClass="comment-date">
+															<f:convertDateTime locale="fr" type="date"
+																pattern="dd MMM yyyy" timeZone="CET" />
+														</h:outputLabel>
+														<h:outputLabel value="à" styleClass="comment-date" />
+														<h:outputLabel value="#{comment.dateEmission}"
+															styleClass="comment-date interval">
+															<f:convertDateTime type="time" pattern="HH:mm"
+																timeZone="CET" />
+														</h:outputLabel>
+
+
+														<!-- *****************MODIFIE LE******************** -->
+
+														<h:outputLabel value="modifié le"
+															styleClass="comment-date"
+															rendered="#{comment.dateDerniereMaj != null}" />
+														<h:outputLabel value="#{comment.dateDerniereMaj}"
+															styleClass="comment-date"
+															rendered="#{comment.dateDerniereMaj != null}">
+															<f:convertDateTime locale="fr" type="date"
+																pattern="dd MMM yyyy" timeZone="CET" />
+														</h:outputLabel>
+														<h:outputLabel value="à" styleClass="comment-date"
+															rendered="#{comment.dateDerniereMaj != null}" />
+														<h:outputLabel value="#{comment.dateDerniereMaj}"
+															styleClass="comment-date"
+															rendered="#{comment.dateDerniereMaj != null}">
+															<f:convertDateTime type="time" pattern="HH:mm"
+																timeZone="CET" />
+														</h:outputLabel>
+
+													</div>
+												</div>
+											</div>
+										</ui:repeat>
+
+
+											<b:inputTextarea placeholder="Commentez ici"
+												value="#{mbArticle.commentaire}" style-class="input_comment">
+
+											</b:inputTextarea>
+
+
+										<div class="row bouton-commentaire">
+											<b:commandButton value="Poster le commentaire" ajax="true"
+												update="" look="primary" />
+										</div>
+									</div>
+								</div>
+							</b:tab>
+
+						</b:tabView>
+					</div>
+				</div>
+			</b:container>
+
+
+
+		</b:form>
+
+
+	</ui:define>
+</ui:composition>
+</html>

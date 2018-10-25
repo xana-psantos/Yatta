@@ -1,0 +1,120 @@
+/*  Mini CSS reset:  */
+* {
+  font-family: 'Open Sans', sans-serif;
+}
+label, a {
+	font-family: 'Lato', sans-serif;
+}
+
+.imageProfilTop{
+	width: 50%;
+	background-size: auto 100%;
+	background-repeat: no-repeat;
+}
+.paddingLeftBouton{
+	margin-left: 2vh;
+}
+.classeAPropos{
+	text-align: center;
+	
+}
+div.descriptionProfil p {
+	font-size: 1em;	
+}
+.btn.btn-default:hover {
+	
+	-moz-box-shadow: 1px 1px 10px 0px #cfcfcf;
+	-webkit-box-shadow: 1px 1px 10px 0px #cfcfcf;
+	-o-box-shadow: 1px 1px 10px 0px #cfcfcf;
+	box-shadow: 1px 1px 10px 0px #cfcfcf;
+	filter:progid:DXImageTransform.Microsoft.Shadow(color=#cfcfcf, Direction=134, Strength=10);
+	
+}
+.pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus{
+	background-color: white !important;
+	color: #555 !important;
+	border-color: black !important;
+}
+.pagination > li > a, .pagination > li > span{
+	color: #555 !important;
+}
+.classeTab > a{
+	font-size: 1.5vh;
+	color: #555;
+}
+.descriptionProfil{
+	text-align: justify;
+	padding-left: 5vh;
+	padding-right: 5vh;
+	font-size: 1.5vh;
+}
+.colonneProfil{
+
+	-padding-left: 1vh;
+	-padding-right:1vh;
+	align-items: center;
+}
+.imageEspace{
+	width: 50%;
+	display:block;
+margin-left:auto;
+margin-right:auto;
+	
+}
+.divAutourCarroussel{
+	text-align: center;
+}
+
+.profilTop{
+	text-align: center;
+	align-items: center;
+	border: none;
+}
+div.profilTop{
+	border: none;	
+}
+.paragrapheVoirPlus{
+	margin-top: 1vh;
+}
+/*****************PANEL ARTICLES*************************/
+
+/* green ajouter article btn */
+
+.btn.btn-default.btn_article {
+	background-color:#00c9b1;
+	border-radius:5px;
+	color: white;
+	margin-bottom: 2vh;
+	margin-left: 2vw;
+}
+.btn.btn-default.btn_article:hover {
+	background-color: #60ffe9;	
+	color:black;
+	-moz-box-shadow: 1px 1px 10px 0px #cfcfcf;
+	-webkit-box-shadow: 1px 1px 10px 0px #cfcfcf;
+	-o-box-shadow: 1px 1px 10px 0px #cfcfcf;
+	box-shadow: 1px 1px 10px 0px #cfcfcf;
+	filter:progid:DXImageTransform.Microsoft.Shadow(color=#cfcfcf, Direction=134, Strength=10);
+}
+
+.panelArticle:hover {
+	-moz-box-shadow: 1px 1px 20px 5px #c0c0c0;
+	-webkit-box-shadow: 1px 1px 20px 5px #c0c0c0;
+	-o-box-shadow: 1px 1px 20px 5px #c0c0c0;
+	box-shadow: 1px 1px 20px 5px #c0c0c0;
+	filter:progid:DXImageTransform.Microsoft.Shadow(color=#c0c0c0, Direction=134, Strength=20);
+	cursor: pointer;
+}
+.container_article {
+	height:50vh;
+	margin-bottom:10vh;
+}
+.ligneImage {
+	margin:auto;
+	_width:60%;
+}
+
+/* favoris */
+span.nomMembre, span.nomBoutiqueMembre, span.nomEspaceTutoMembre {
+	text-align: center;
+}

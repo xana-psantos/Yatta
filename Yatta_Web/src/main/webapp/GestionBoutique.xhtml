@@ -1,0 +1,130 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions">
+
+<b:form id="FormGestionBoutique" enctype="multipart/form-data">
+	<b:row>
+		<b:panel>
+			<b:label text="Nom de votre boutique :"></b:label>
+			<b:inputText value="#{mbProfil.boutiqueProfil.nom}" />
+			<b:label text="Description de votre boutique :"></b:label>
+			<b:inputTextarea value="#{mbProfil.boutiqueProfil.description}"/>
+			<b:label text="Choisissez une photo pour votre boutique :"></b:label>
+			<h:inputFile value="#{mbCommandeProfil.fileUpload}"></h:inputFile>
+		</b:panel>
+	</b:row>
+	<b:row>
+		<b:column medium-screen="6">
+		</b:column>
+		<b:column medium-screen="6">
+			<b:column medium-screen="8">
+				<b:commandButton value="Prévisualisez votre boutique"></b:commandButton>
+			</b:column>
+			<b:column medium-screen="4">
+				<b:commandButton value="Enregistrer"></b:commandButton>
+			</b:column>
+		</b:column>
+	</b:row>
+
+	<h3>Vos articles</h3>
+	<b:dropMenu value="Filtrer" style="font-size:large;">
+
+		<b:commandButton value="par note" look="link">
+			<f:ajax event="click"
+				listener="#{mbGestionBoutique.filtrerArticlesParBoutiqueOrderByNoteDesc()}"
+				render="art_bout"></f:ajax>
+		</b:commandButton>
+		<b:commandButton value="par prix" look="link">
+			<f:ajax event="click"
+				listener="#{mbGestionBoutique.filtrerArticlesBoutiqueParPrixAsc()}"
+				render="art_bout"></f:ajax>
+		</b:commandButton>
+		<b:commandButton value="par popularité" look="link">
+			<f:ajax event="click"
+				listener="#{mbGestionBoutique.filtrerArticlesBoutiqueParNbrVueDesc()}"
+				render="art_bout"></f:ajax>
+		</b:commandButton>
+		<b:commandButton value="par date" look="link">
+			<f:ajax event="click"
+				listener="#{mbGestionBoutique.filtrerArticlesBoutiqueParDateAjoutDesc()}"
+				render="art_bout"></f:ajax>
+		</b:commandButton>
+		<b:navLink></b:navLink>
+		<b:navLink header="Catégories"></b:navLink>
+		<b:commandButton look="link">
+			<ui:repeat var="cat" value="#{mbGestionBoutique.categoriesBoutique}">
+				<b:commandButton value="#{cat.libelle}" look="link">
+
+				</b:commandButton>
+			</ui:repeat>
+		</b:commandButton>
+	</b:dropMenu>
+	<b:commandButton value="Ajouter un nouvel Article" style-class="btn_article"/>
+	<!-- *********************************	ARTICLES REPETES *********************************** -->
+	<b:row style-class="articles_boutique" id="art_bout">
+						<ui:repeat var="article" value="#{mbGestionBoutique.articlesBoutique}">
+						
+							<div class="col-md-3 d-inline-block"  style="height:50vh;margin-bottom:3vh;">
+								<b:panel style-class="panelArticle" onclick="" >
+									
+									<b:row style-class="ligneArticle" style="font-weight:bold;">
+										<h:outputText value="#{fn:substring(article.titre, 0, 27)}..."
+											rendered="#{article.titre.length() >= 30}" styleClass="nomArticle"/>
+										<h:outputLabel value="#{article.titre}"
+                                                       rendered="#{30 > article.titre.length()}" styleClass="nomArticle"/>
+									</b:row>
+									
+									<b:row style-class="ligneStars">
+
+											<b:iconAwesome name="fa-star" rendered="#{article.noteMoyenne >= 1}"/>
+											<b:iconAwesome name="fa-star" rendered="#{article.noteMoyenne >= 2}"/>
+											<b:iconAwesome name="fa-star" rendered="#{article.noteMoyenne >= 3}"/>
+											<b:iconAwesome name="fa-star" rendered="#{article.noteMoyenne >= 4}"/>
+											<b:iconAwesome name="fa-star" rendered="#{article.noteMoyenne >= 5}"/>
+											<b:iconAwesome name="fa-star-half-o" rendered="#{article.noteMoyenne > article.noteMoyenne.intValue()}"/>
+										
+										<h:outputText value="Pas encore noté" rendered="#{article.noteMoyenne == 0}"/>
+									</b:row>
+									
+									<b:row style-class="ligneImage">
+										<b:image tooltip="#{article.titre}"
+											value="resources/images/produitsArticles/#{article.image}"
+											style-class="img-fluid center" style="height:45%;width:45%;"/>
+									</b:row>
+									
+									<b:row style-class="ligneDesc" style="font-weight:light;">
+										<h:outputText value="#{fn:substring(article.description, 0, 67)}..."
+											rendered="#{article.description.length() >= 70}" styleClass="nomArticle" />
+										<h:outputText value="#{article.description}"
+                                                       rendered="#{70 > article.description.length()}" styleClass="nomArticle"/>
+									</b:row>
+																	
+									<b:row style-class="ligneVendeur">
+										<h:outputText
+											value="Nombre de vues : #{article.nbreVue}"
+											styleClass="nomVendeur"/>
+									</b:row>
+									
+									<b:row style-class="lignePrix" style="vertical-alignement:center;">
+										
+										<b:column  style-class="columnPrix"
+											style="vertical-alignement:center;text-align:center;">
+											<h:outputText value="#{article.prix}€" styleClass="prix" 
+												style="font-size:1.5em;vertical-alignement:center;text-align:center;" />
+										</b:column>
+
+									</b:row>
+									
+								</b:panel>
+							</div>
+							
+						</ui:repeat>
+					</b:row>
+
+</b:form>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html >
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions">
+
+<b:form id="formCommandeRecue">
+
+	<b:container>
+
+		<ui:param name="commande"
+			value="#{mbCommandeRecue.commandeSelectionneeDataTable}" />
+		<b:row styleClass="ligneTitreCommandeRecue">
+			<b:panelGrid colSpans="1,11" class="type_heading">
+				<div class="Empty" />
+				<h:outputLabel
+					value="Récapitulatif de la commande CMD-#{commande.id} du #{commande.dateCreation.date}/#{commande.dateCreation.month +1}/#{commande.dateCreation.year -100} passée par #{mbCommandeRecue.commandeSelectionneeDataTable.acheteur.pseudonyme}" />
+			</b:panelGrid>
+		</b:row>
+		<b:row styleClass="ligneCommandeTable">
+			<b:panelGrid colSpans="1,10,1" class="type_heading">
+				<div class="Empty" />
+				<b:dataTable selected-items="rows"
+					value="#{mbCommandeRecue.commandeSelectionneeDataTable.lignesDeCommande}"
+					var="ligneCommande" searching="false" responsive="true"
+					paginated="false" info="false" styleClass="articlesDataTable">
+					<b:dataTableColumn>
+						<f:facet name="header">Article(s)</f:facet>
+						<h:outputText value="#{ligneCommande.article.titre}" />
+					</b:dataTableColumn>
+					<b:dataTableColumn>
+						<f:facet name="header">Prix unitaire</f:facet>
+						<h:outputText value="#{ligneCommande.article.prix} €" />
+					</b:dataTableColumn>
+					<b:dataTableColumn>
+						<f:facet name="header">Quantité</f:facet>
+						<h:outputText value="#{ligneCommande.quantite}" />
+					</b:dataTableColumn>
+					<b:dataTableColumn>
+						<f:facet name="header">Prix</f:facet>
+						<h:outputText
+							value="#{ligneCommande.quantite * ligneCommande.article.prix} €" />
+					</b:dataTableColumn>
+				</b:dataTable>
+				<div class="Empty" />
+			</b:panelGrid>
+		</b:row>
+		<b:row styleClass="lignePrix">
+			<b:panelGrid colSpans="1,10,1" class="type_heading">
+				<div class="Empty" />
+				<h:outputLabel
+					value="Total = #{mbCommandeRecue.calculerPrixCommandeTTC(commande)} €" />
+			</b:panelGrid>
+		</b:row>
+		<b:row styleClass="ligneAdresses">
+			<b:panelGrid colSpans="2,4,4,2" class="type_heading">
+				<div class="Empty" />
+				<b:panel styleClass="panelAdresseFacturation" collapsible="false"
+					look="danger">
+					<f:facet name="heading" class="type_heading">
+						<b:row>
+							<span class="titreAdresseFacturation">Adresse de
+								facturation</span>
+						</b:row>
+					</f:facet>
+					<ui:param name="adresseFacturation"
+						value="#{mbCommandeRecue.commandeSelectionneeDataTable.adresseFacturation.adresse}" />
+					<h:outputText
+						value="#{commande.adresseFacturation.membre.prenom} #{mbCommandeRecue.commandeSelectionneeDataTable.adresseFacturation.membre.nom}" />
+					<br />
+					<h:outputText
+						value="#{adresseFacturation.numeroRue} #{adresseFacturation.libelleRue}" />
+					<br />
+					<h:outputText
+						value="#{adresseFacturation.codePostal}, #{adresseFacturation.libelleVille} #{adresseFacturation.pays}" />
+					<br />
+					<h:outputText value="#{adresseFacturation.pays}" />
+				</b:panel>
+				<b:panel styleClass="panelAdresseLivraison" collapsible="false"
+					look="danger">
+					<f:facet name="heading" class="type_heading">
+						<b:row>
+							<span class="titreAdresseLivraison">Adresse de livraison</span>
+						</b:row>
+					</f:facet>
+					<ui:param name="adresseLivraison"
+						value="#{mbCommandeRecue.commandeSelectionneeDataTable.adresseLivraison.adresse}" />
+					<h:outputText
+						value="#{commande.adresseLivraison.membre.prenom} #{commande.adresseLivraison.membre.nom}" />
+					<br />
+					<h:outputText
+						value="#{adresseLivraison.numeroRue} #{adresseLivraison.libelleRue}" />
+					<br />
+					<h:outputText
+						value="#{adresseLivraison.codePostal}, #{adresseLivraison.libelleVille} #{adresseLivraison.pays}" />
+					<br />
+					<h:outputText value="#{adresseLivraison.pays}" />
+				</b:panel>
+				<div class="Empty" />
+			</b:panelGrid>
+		</b:row>
+		<b:row styleClass="ligneInfosCommandes">
+			<b:panelGrid colSpans="2,8,2" class="type_heading">
+				<div class="Empty" />
+				<b:panel styleClass="panelInformationsCommande" collapsible="false"
+					look="danger">
+					<f:facet name="heading" class="type_heading">
+						<b:row>
+							<span class="titreAdresseFacturation">Confirmation de la
+								commande</span>
+						</b:row>
+					</f:facet>
+					<h:outputText
+						value="Moyen de paiement: #{commande.moyenPaiement.libelle}" />
+					<br />
+					<h:outputText
+						value="Commande validée le : #{commande.dateValidation.date}/#{commande.dateValidation.month +1}/#{commande.dateValidation.year -100}"
+						rendered="#{commande.dateValidation != null}" />
+					<br />
+
+					<b:row styleClass="ligneBoutonValidation">
+						<b:panelGrid colSpans="1,2,1,3,5" class="type_heading">
+							<div class="Empty" />
+							<b:commandButton value="Valider la commande" look="warning"
+								styleClass="boutonValiderCommande"
+								rendered="#{commande.dateValidation == null}"
+								oncomplete="$('.selectionDateLivraison').css('display', 'inline-table');$('.boutonConfirmerCommande').css('display', 'inline-table')"
+								ajax="true"></b:commandButton>
+							<div class="Empty" />
+							<b:datepicker placeholder="Date de livraison"
+								styleClass="selectionDateLivraison"
+								value="#{mbCommandeRecue.dateLivraisonCommande}"></b:datepicker>
+							<b:commandButton value="Confirmer validation" look="success"
+								styleClass="boutonConfirmerCommande"
+								action="#{mbCommandeRecue.validerCommande(commande, mbCommandeRecue.dateLivraisonCommande)}"></b:commandButton>
+						</b:panelGrid>
+					</b:row>
+				</b:panel>
+				<div class="Empty" />
+			</b:panelGrid>
+		</b:row>
+		<b:row styleClass="ligneBoutonRetour">
+			<b:panelGrid colSpans="2,8,2" class="type_heading">
+				<div class="Empty" />
+				<b:commandButton value="Retour" look="warning"
+					action="#{mbCommandeRecue.clickRetourCommandes()}"></b:commandButton>
+				<div class="Empty" />
+			</b:panelGrid>
+		</b:row>
+	</b:container>
+</b:form>
+</html>

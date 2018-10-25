@@ -1,0 +1,102 @@
+<!DOCTYPE html >
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:b="http://bootsfaces.net/ui">
+
+<b:row>
+	<h3>Articles Favoris</h3>
+	<ui:repeat value="#{mbProfil.articlesFavoris}" var="fav">
+		<div class="col-md-3 d-inline-block"
+			rendered="#{fav.article.dateRetrait == null}"
+			style="height: 50vh; margin-bottom: 3vh;">
+			<b:panel style-class="panelArticle"
+				style="height:50vh;display:flex;align-items:center">
+				<b:row style-class="ligneImage">
+					<b:image
+						value="resources/images/produitsArticles/#{fav.article.image}"
+						class="img-fluid center" alt="Responsive image"
+						style="width:45%;heigth:50vh;margin-bottom:2vh;" />
+				</b:row>
+				<b:row style-class="ligneArticle" >
+					<h:outputText value="#{fav.article.titre}" styleClass="nomArticle" />
+				</b:row>
+				<b:row style-class="ligneVendeur" style="font-weight:bold;">
+					<h:outputText
+						value="Vendu par : #{fav.article.boutique.membre.pseudonyme}"
+						styleClass="nomVendeur" />
+				</b:row>
+				<b:row style-class="lignePrix">
+					<b:column offset-xs="1" offset-sm="2" tiny-screen="3"
+						style-class="columnPrix">
+						<h:outputText value="#{fav.article.prix}€" styleClass="prix"
+							style="font-size:1.5em;" />
+					</b:column>
+					<b:column tiny-screen="3">
+						<b:button icon="shopping-cart" look="success" />
+					</b:column>
+				</b:row>
+			</b:panel>
+		</div>
+	</ui:repeat>
+</b:row>
+<b:row>
+	<h3>Tutoriels Favoris</h3>
+	<ui:repeat var="tutoFav" value="#{mbProfil.tutorielFavoris}">
+		<div class="col-md-3 d-inline-block"
+			rendered="#{tutoFav.tutoriel.dateRetrait == null}">
+			<b:panel style-class="panelTutoriel" style="text-align:center;">
+				<b:row style-class="ligneVideo">
+					<div class="embed-responsive embed-responsive-16by9">
+						<iframe class="embed-responsive-item"
+							src="https://www.youtube.com/embed/#{tutoFav.tutoriel.contenu}?rel=0"></iframe>
+					</div>
+
+				</b:row>
+				<b:row style-class="ligneArticle" style="font-weight:bold;margin-top:2vh;">
+					<h:outputText value="#{tutoFav.tutoriel.titre}"
+						styleClass="nomTutoriel" />
+				</b:row>
+				<b:row style-class="ligneCreateur">
+					<h:outputText
+						value="Tutoriel proposé par : #{tutoFav.tutoriel.espaceTutoriel.membre.pseudonyme}"
+						styleClass="nomCreateur" />
+				</b:row>
+
+			</b:panel>
+		</div>
+	</ui:repeat>
+</b:row>
+<b:row>
+	<h3>Membres Favoris</h3>
+	<ui:repeat var="membreFav" value="#{mbProfil.membreFavoris}">
+		<div class="col-md-3 d-inline-block"
+			rendered="#{membreFav.membreSuivi.dateDesinscription == null}">
+			<b:panel style-class="panelMembre" style="text-align:center;">
+				<b:row style-class="ligneImageMembre">
+					<img src="resources/images/personne/#{membreFav.membreSuivi.photo}"
+						class="img-fluid membre center-block" alt="Responsive image"
+						style="border-radius: 50%; text-align: center; width: 130px; height: 130px; margin-bottom: 2vh;" />
+				</b:row>
+				<b:row style-class="ligneMembre" style="font-weight:bold;">
+					
+						<h:outputText value="#{membreFav.membreSuivi.pseudonyme}"
+							styleClass="nomMembre" style="text-align:center;" />
+				
+				</b:row>
+				<b:row style-class="ligneBoutiqueEspaceTuto">
+					<h:outputText
+						value="Boutique : #{membreFav.membreSuivi.boutique.nom}"
+						styleClass="nomBoutiqueMembre" />
+					<br />
+					<h:outputText
+						value="Espace tutoriels : #{membreFav.membreSuivi.espaceTutoriel.nom}"
+						styleClass="nomEspaceTutoMembre" />
+					<br />
+				</b:row>
+			</b:panel>
+		</div>
+	</ui:repeat>
+</b:row>
+</html>

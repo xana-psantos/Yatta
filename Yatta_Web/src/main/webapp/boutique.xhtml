@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions">
+<ui:composition template="/master-page.xhtml">
+	<ui:define name="titre">Boutique "{nom_boutique}</ui:define>
+	<ui:define name="cssPage">
+		<link href="resources/css/boutique.css" rel="stylesheet"
+			type="text/css" />
+		<link href="resources/css/cartoucheArticle.css" rel="stylesheet"
+			type="text/css" />
+	</ui:define>
+	<ui:define name="mainSection">
+		<b:container fluid="true" id="content_boutique">
+
+			<!--   *********** BANNER BOUTIQUE  (Bootstrap classes, sorry) ***********    -->
+			<div id="banner">
+
+				<b:image
+					value="resources/images/Boutique/#{mbBoutique.boutique.image}"
+					style-class="img_banner img-responsive center" />
+				<br />
+
+			</div>
+			<b:row>
+				<b:column offset-xs="0" offset-sm="1" offset="2" col-xs="12"
+					col-sm="9">
+					<h:outputLabel id="nom_boutique" value="#{mbBoutique.boutique.nom}" />
+				</b:column>
+			</b:row>
+
+			<b:row>
+
+				<!-- ****************************LEFT**************************************** -->
+
+				<b:column offset-sm="1" col-sm="6" id="container_desc_boutique">
+
+					<div id="div_desc_boutique">
+						<div class="text-center" id="nb_ventes_annees">
+							<h:outputLabel value="#{mbBoutique.nbVentes}" />
+
+							<h:outputLabel style-class="depuis_date"
+								style="padding-left:1em;" value="sur Yatta depuis " />
+							<h:outputLabel value="#{mbBoutique.boutique.dateOuverture}"
+								id="annee_inscr" style="padding-left:0.5em;">
+								<f:convertDateTime pattern="MMM yyyy" />
+							</h:outputLabel>
+							<b:iconAwesome name="fa-star"
+								rendered="#{mbBoutique.noteMoyenneBoutique >= 1}" />
+							<b:iconAwesome name="fa-star"
+								rendered="#{mbBoutique.noteMoyenneBoutique >= 2}" />
+							<b:iconAwesome name="fa-star"
+								rendered="#{mbBoutique.noteMoyenneBoutique >= 3}" />
+							<b:iconAwesome name="fa-star"
+								rendered="#{mbBoutique.noteMoyenneBoutique >= 4}" />
+							<b:iconAwesome name="fa-star"
+								rendered="#{mbBoutique.noteMoyenneBoutique >= 5}" />
+							<b:iconAwesome name="fa-star-half-o"
+								rendered="#{mbBoutique.noteMoyenneBoutique > mbBoutique.noteMoyenneBoutique.intValue()}" />
+							<h:outputLabel
+								value="(basé sur #{mbBoutique.notesBoutique.size()} notes)"
+								style="border:0" />
+							<br />
+						</div>
+						<h:form>
+							<h:outputLabel styleClass="panel_desc_boutique"
+								value="#{mbBoutique.boutique.description}"
+								rendered="#{1000 >= mbBoutique.boutique.description.length()}"
+								style="border:0; margin-top:5vh;padding:0 4vw;">
+							</h:outputLabel>
+							<!-- **********version collapsed panel avec substring************ -->
+							<b:panel styleClass="panel_desc_boutique" collapsed="true"
+								rendered="#{mbBoutique.boutique.description.length()>997}"
+								title="#{fn:substring(mbBoutique.boutique.description, 0, 997)}...">
+								<h:outputText
+									value="...#{fn:substring(mbBoutique.boutique.description, 998, mbBoutique.boutique.description.length())}" />
+							</b:panel>
+						</h:form>
+					</div>
+				</b:column>
+
+
+				<!-- **********************************RIGHT*********************************** -->
+
+				<b:column col-sm="4" id="div_avatar_nom_membre"
+					styleClass="text-center">
+					<b:panel style-class="panelProprietaire">
+						<label>Propriétaire</label>
+						<b:image
+							value="resources/images/personne/#{mbBoutique.boutique.membre.photo}"
+							id="avatar_membre" styleClass="center-block" />
+						<h:outputLabel value="#{mbBoutique.boutique.membre.pseudonyme}"
+							id="nom_membre" />
+						<br />
+						<b:iconAwesome name="envelope-o" style="margin-right:1em" />
+						<h:link value="Contactez" onclick="" />
+						<h:form style="margin-top:2vh">
+							<b:commandButton value="Ajouter à mes favoris">
+								<b:iconAwesome name="fa-heart-o" />
+							</b:commandButton>
+							<br />
+							<b:commandButton value="Voir son espace tutoriel"
+								style="margin-top:2vh" style-class="btn_tuto">
+								<b:iconAwesome name="video-camera" />
+							</b:commandButton>
+						</h:form>
+					</b:panel>
+				</b:column>
+			</b:row>
+
+			<!-- 	***************************************GALLERY************************************* -->
+			<h:form>
+
+				<b:panel collapsible="false" id="panel_articles"
+					style="margin:0 2em; border:0">
+					<b:row>
+						<b:panelGrid colSpans="10,1,1" size="xs" style="margin-bottom:1em">
+							<h:outputLabel
+								value="#{mbBoutique.articlesBoutique.size()} Articles"
+								style="margin-left:1em;font-size:large;text-align:left" />
+							<b:dropMenu value="Filtrer" style="font-size:large;">
+								<!-- 								<b:dropMenu value="Catégories"> -->
+								<!-- 									<ui:repeat var="cat" value="#{mbBoutique.categoriesBoutique}"> -->
+								<!-- 										<b:navLink value="#{cat.libelle}" href="#"/> -->
+								<!-- 									</ui:repeat> -->
+								<!-- 								</b:dropMenu> -->
+								<b:commandButton value="par note" look="link">
+									<f:ajax event="click"
+										listener="#{mbBoutique.filtrerArticlesParBoutiqueOrderByNoteDesc()}"
+										render="art_bout"></f:ajax>
+								</b:commandButton><br/>
+								<b:commandButton value="par prix" look="link">
+									<f:ajax event="click"
+										listener="#{mbBoutique.filtrerArticlesBoutiqueParPrixAsc()}"
+										render="art_bout"></f:ajax>
+								</b:commandButton>
+								<b:commandButton value="par popularité" look="link">
+									<f:ajax event="click"
+										listener="#{mbBoutique.filtrerArticlesBoutiqueParNbrVueDesc()}"
+										render="art_bout"></f:ajax>
+								</b:commandButton>
+								<b:commandButton value="par date" look="link">
+									<f:ajax event="click"
+										listener="#{mbBoutique.filtrerArticlesBoutiqueParDateAjoutDesc()}"
+										render="art_bout"></f:ajax>
+								</b:commandButton>
+								<b:navLink></b:navLink>
+								<b:navLink header="Catégories"></b:navLink>
+								<b:commandButton look="link">
+									<ui:repeat var="cat" value="#{mbBoutique.categoriesBoutique}">
+										<b:commandButton value="#{cat.libelle}" look="link">
+
+										</b:commandButton>
+									</ui:repeat>
+								</b:commandButton>
+							</b:dropMenu>
+							<b:commandButton icon-awesome="fa-sort" icon-align="center">
+								<f:ajax event="click"
+									listener="#{mbBoutique.changerOrdreArticlesBoutique()}"
+									render="art_bout"></f:ajax>
+							</b:commandButton>
+						</b:panelGrid>
+					</b:row>
+
+					<!-- *********************************	ARTICLES REPETES *********************************** -->
+
+					<b:row style-class="articles_boutique" id="art_bout">
+						<ui:repeat var="article" value="#{mbBoutique.articlesBoutique}">
+
+							<div class="col-md-3 d-inline-block container_article">
+								<b:panel style-class="panelArticle">
+									<b:row style-class="ligneArticle" style="font-weight:bold;">
+										<h:outputText value="#{fn:substring(article.titre, 0, 27)}..."
+											rendered="#{article.titre.length() >= 30}"
+											styleClass="nomArticle" />
+										<h:outputLabel value="#{article.titre}"
+											rendered="#{30 > article.titre.length()}"
+											styleClass="nomArticle" />
+									</b:row>
+
+									<b:row style-class="ligneStars">
+
+										<b:iconAwesome name="fa-star"
+											rendered="#{article.noteMoyenne >= 1}" />
+										<b:iconAwesome name="fa-star"
+											rendered="#{article.noteMoyenne >= 2}" />
+										<b:iconAwesome name="fa-star"
+											rendered="#{article.noteMoyenne >= 3}" />
+										<b:iconAwesome name="fa-star"
+											rendered="#{article.noteMoyenne >= 4}" />
+										<b:iconAwesome name="fa-star"
+											rendered="#{article.noteMoyenne >= 5}" />
+										<b:iconAwesome name="fa-star-half-o"
+											rendered="#{article.noteMoyenne > article.noteMoyenne.intValue()}" />
+
+										<h:outputText value="(#{article.notes.size()} notes)"
+											rendered="#{article.noteMoyenne != 0}"
+											style="margin-left:0.5vw;" />
+										<h:outputText value="Pas encore noté"
+											rendered="#{article.noteMoyenne == 0}" />
+									</b:row>
+
+									<b:row style-class="ligneImage">
+										<b:image tooltip="#{article.titre}"
+											value="resources/images/produitsArticles/#{article.image}"
+											style-class="img-fluid center" style="height:45%;width:45%;" />
+									</b:row>
+
+									<b:row style-class="ligneDesc" style="font-weight:light;">
+										<h:outputText
+											value="#{fn:substring(article.description, 0, 67)}..."
+											rendered="#{article.description.length() >= 70}"
+											styleClass="nomArticle" />
+										<h:outputText value="#{article.description}"
+											rendered="#{70 > article.description.length()}"
+											styleClass="nomArticle" />
+									</b:row>
+
+									<b:row style-class="ligneVendeur">
+										<h:outputText value="Nombre de vues : #{article.nbreVue}"
+											styleClass="nomVendeur" />
+									</b:row>
+
+									<b:row style-class="lignePrix"
+										style="vertical-alignement:center;">
+
+										<b:column offset-xs="1" offset-sm="2" tiny-screen="3"
+											style-class="columnPrix" style="vertical-alignement:center;text-align:center;">
+											<h:outputText value="#{article.prix}€" styleClass="prix"
+												style="font-size:1.5em;vertical-alignement:center;text-align:center;" />
+										</b:column>
+										<b:column tiny-screen="2" style="vertical-alignement:center;text-align:center;">
+											<b:button icon="heart" look="danger"
+												style="vertical-alignement:center;" />
+										</b:column>
+										<b:column tiny-screen="3" style="vertical-alignement:center;text-align:center;">
+											<b:button icon="shopping-cart" look="success"
+												style="vertical-alignement:center;text-align:center;" />
+										</b:column>
+
+
+									</b:row>
+									<b:row tiny-screen="3" style="text-align:center;vertical-alignement:center;">
+										<b:commandButton value="Voir plus" look="link" style="color:#00c9b1;"
+											action="#{mbBoutique.goToFicheArticle(article)}" />
+									</b:row>
+								</b:panel>
+							</div>
+
+						</ui:repeat>
+					</b:row>
+					<b:row>
+						<b:panelGrid offset-xs="11" col-spans="12" class="type_heading">
+							<b:button icon="plus" value="" />
+						</b:panelGrid>
+					</b:row>
+				</b:panel>
+			</h:form>
+		</b:container>
+
+	</ui:define>
+</ui:composition>
+</html>

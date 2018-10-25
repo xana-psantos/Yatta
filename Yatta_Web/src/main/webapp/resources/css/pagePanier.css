@@ -1,0 +1,91 @@
+
+
+.paymentWrap .paymentBtnGroup .paymentMethod .method.visa {
+	background-image: url("../images/visa(1).png");
+}
+
+.paymentWrap .paymentBtnGroup .paymentMethod .method.master-card {
+	background-image: url("../images/mastercard.png");
+}
+
+.paymentWrap .paymentBtnGroup .paymentMethod .method.paypal {
+	background-image: url("../images/paypal.png");
+}
+
+.imageProduit{
+	width: 30%;
+}
+
+.sorting{
+	width: 15%;
+}
+
+.headerArticle.sorting{
+	width: 40%;
+}
+
+.colonneBoutonRetour{
+	text-align: right;
+}
+
+.connexionPanier, .connexionPanier .container-fluid{
+	padding-left:20em;
+	padding-right: 20em;
+	padding-top: 5em;
+}
+
+.adressePanier{
+	margin-left:30em;
+	margin-right: 30em;
+	margin-top: 2em;
+}
+
+ .paiementPanier{
+	margin-left:40em;
+	margin-right: 40em;
+	marging-top: 2em;
+}
+
+.rowInputPays, .rowInputBoutonAdresseLiv{
+	padding-right:1em;
+	padding-left:1em;
+}
+
+.boutonAnnuler, .btn.btn-default.boutonIdentifierPanier, .btn.btn-default.EnregistrerInscriptionPanier, .btn.btn-default.boutonMDPOubliePanier, .btn.btn-default.boutonPasserCommande  {
+	margin-right: 1em;
+	background-color:#00c9b1;
+	border-radius:5px;
+	color: white;
+	min-width: 40%;
+}
+
+.btn.btn-default.EnregistrerInscriptionPanier{
+	margin-left: 1em;
+}
+
+.btn.btn-default.boutonIdentifierPanier:hover, .btn.btn-default.EnregistrerInscriptionPanier:hover, .btn.btn-default.boutonMDPOubliePanier:hover, .btn.btn-default.boutonPasserCommande:hover {
+	background-color: #60ffe9;
+	-moz-box-shadow: 1px 1px 10px 0px #cfcfcf;
+	-webkit-box-shadow: 1px 1px 10px 0px #cfcfcf;
+	-o-box-shadow: 1px 1px 10px 0px #cfcfcf;
+	box-shadow: 1px 1px 10px 0px #cfcfcf;
+	filter:progid:DXImageTransform.Microsoft.Shadow(color=#cfcfcf, Direction=134, Strength=10);
+	color:black;
+}
+
+.titreAdresse{
+	font-size: 1.5em;
+	padding-bottom: 1em;
+}
+
+.inputEmailPanier{
+	margin-top:1em;
+}
+
+.inputPanier{
+	margin-right:1em;
+	margin-left: 1em;
+}
+
+
+

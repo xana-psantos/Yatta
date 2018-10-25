@@ -1,0 +1,121 @@
+/*
+  Theme Name: Yatta
+  Author: yatta.com
+*/
+/*--------------------------------------------------------------
+# General
+--------------------------------------------------------------*/
+@import url('https://fonts.googleapis.com/css?family=Heebo');
+
+@import url('https://fonts.googleapis.com/css?family=Maven+Pro');
+
+@import
+	url('https://fonts.googleapis.com/css?family=Courgette|Maven+Pro');
+	
+@import url('https://fonts.googleapis.com/css?family=Lato|Open+Sans');
+
+@font-face {
+	font-family: 'Alegreya Sans', sans-serif;
+	src: url(/font/AlegreyaSans-Regular.ttf);
+}
+
+@font-face {
+	font-family: 'Andale Mono', sans-serif;
+	src: url(/font/AndaleMono.ttf);
+}
+
+/* CSS pour la brand de la header */
+.navbar.header.navbar-brand>span>img {
+	width: auto;
+	padding: 0;
+	margin: -2vh;
+	height: 8vh;
+	position: relative;
+}
+
+/* CSS pour le header et le footer */
+.navbar.header, .navbar.brandFooter {
+	height: 8vh;
+	width: auto;
+	padding: 0;
+	margin: 0;
+}
+
+/* CSS recherche */
+form.formRechercheMaster {
+	position: absolute;
+	left: 50%;
+	top: 40%;
+	transform: translate(-50%, -50%);
+}
+
+input.rechercheInputText{
+	margin: 0;
+	padding: 0;
+	min-width:20vw;
+}
+
+button.multiselect {
+	_width:5vw;
+}
+
+form.formConnexionMaster {
+	vertical-align: center;
+	margin:0;
+	padding-right: 0.5vw;
+	padding-top:-0.5vw
+}
+
+button.buttonConnexionHeader.a.span {
+	top: 40%;
+	transform: translate(-50%, -50%);
+}
+
+/*
+	Main block.
+*/
+.site-main {
+	padding-top: 8vh;
+	padding-lef: 0;
+	padding-right: 0;
+	padding-bottom: 0;
+	margin: 0;
+	min-height: 92vh;
+}
+
+/* ******MODAL****** */
+.modalHeader {
+	font-family: 'Open Sans', sans-serif;
+	_font-family: 'Lato', sans-serif;
+}
+.label.label-default.label_modal {
+	font-size: 1em;
+	color: grey;
+	background-color: white;
+	opacity: 0%;
+	margin: 1vh 0;
+	margin-left: -0.2vw;
+}
+.label.label-default.label_modal.label_header {
+	font-size: 1.5em;
+	margin-left: -0.5vw;
+	color: #005e55;
+}
+.btn.btn-default.bouton_modal {
+	margin-top:0.5vh;
+	margin-bottom:2vh;
+	background-color:#00c9b1;
+	border-radius:5px;
+	color: white;
+	min-width: 50%;
+	
+}
+.btn.btn-default.bouton_modal:hover {
+	background-color: #60ffe9;
+	-moz-box-shadow: 1px 1px 10px 0px #cfcfcf;
+	-webkit-box-shadow: 1px 1px 10px 0px #cfcfcf;
+	-o-box-shadow: 1px 1px 10px 0px #cfcfcf;
+	box-shadow: 1px 1px 10px 0px #cfcfcf;
+	filter:progid:DXImageTransform.Microsoft.Shadow(color=#cfcfcf, Direction=134, Strength=10);
+	color:black;
+}

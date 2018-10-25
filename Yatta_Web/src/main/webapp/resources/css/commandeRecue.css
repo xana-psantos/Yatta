@@ -1,0 +1,36 @@
+.titreAdresseFacturation, .titreAdresseLivraison {
+	font-size: medium;
+	text-align: left;
+	padding-left: 1em;
+}
+
+.ligneTitreCommandeRecue {
+	font-size:large;
+	padding-top: 1em;
+}
+
+.lignePrix{
+	font-size:large;
+	text-align: right;
+}
+
+.ligneBoutonValidation{
+	padding-top:1em;
+}
+
+.input-group.selectionDateLivraison{
+	display: none;
+}
+
+.btn-success.boutonConfirmerCommande{
+	display:none;
+}
+
+.btn.btn-success.boutonValiderCommande{
+	margin-bottom: 2em;
+}
+
+.ligneBoutonRetour{
+	text-align: right;
+	padding-bottom: 2em;
+}

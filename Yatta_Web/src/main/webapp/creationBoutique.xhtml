@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:b="http://bootsfaces.net/ui">
+
+<ui:composition template="/master-page.xhtml">
+	<ui:define name="titre">Yatta</ui:define>
+	<ui:define name="cssPage">
+		<link href="resources/css/creationBoutique.css" rel="stylesheet" type="text/css" />
+	</ui:define>
+	<ui:define name="mainSection">
+			<b:panel fluid="true">
+				<ul class="progressbar">
+					<li class="active">Infos de votre boutique</li>
+					<li> Ajouter des produits</li>
+					<li> Infos de paiement</li>
+				</ul>
+			</b:panel>
+		<div class="content-area">
+			<!-- Main content form creation boutique - Main Section-->
+			<div class="site-main">
+				<ui:insert name="mainSection2"></ui:insert>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>
+</html>

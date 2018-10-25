@@ -1,0 +1,84 @@
+<!DOCTYPE html >
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:b="http://bootsfaces.net/ui">
+
+	<b:panel>
+	<b:form id="FormGestionEspaceTuto1" enctype="multipart/mixed stream" method="post">
+			<b:inputText label="Nom de votre espace : " value="#{mbGestionEspaceTuto.espaceTutoriel.nom}nom" />
+			<b:inputTextarea label="Description de votre espace :"
+				value="#{mbGestionEspaceTuto.espaceTutoriel.descriptif}"></b:inputTextarea>
+		<b:row>
+			<b:column col-md="4">
+				<h:inputFile label="Choisissez une photo pour votre espace :" value="#{mbGestionEspaceTuto.fileUpload}" validator="#{mbGestionEspaceTuto.validateFile}"></h:inputFile>
+			</b:column>
+			<b:column col-md="8">
+			<b:image 
+						value="resources/images/espacesTuto/#{mbGestionEspaceTuto.espaceTutoriel.image}">
+					</b:image>
+			<br/>
+			</b:column>
+		</b:row>
+	</b:form>				
+		<b:row>
+			<br/>
+					<b:commandButton styleClass="paddingLeftBouton" value="Prévisualisez votre espace tutoriel"></b:commandButton>
+					<b:commandButton styleClass="paddingLeftBouton"  value="Enregistrer">
+					<f:ajax execute="FormGestionEspaceTuto1" listener="#{mbGestionEspaceTuto.modifierEspaceTuto()}" render="FormGestionEspaceTuto1"></f:ajax>
+					</b:commandButton>
+		</b:row>
+
+	</b:panel>
+	
+	<b:form id="FormGestionEspaceTuto2" enctype="multipart/mixed stream">
+	<b:panel>
+		<h3>Vos tutoriels</h3>
+		<ui:repeat var="tuto" value="#{mbGestionEspaceTuto.tutoriels}">
+			<div class="col-md-3 d-inline-block">
+				<b:panel style-class="panelTutoriel">
+					<b:row style-class="ligneVideo">
+						<div class="embed-responsive embed-responsive-16by9">
+							<iframe class="embed-responsive-item"
+								src="https://www.youtube.com/embed/#{tuto.contenu}?rel=0"></iframe>
+						</div>
+
+					</b:row>
+					<b:row style-class="ligneArticle">
+						<h:outputText value="#{tuto.titre}" styleClass="nomTutoriel" />
+					</b:row>
+					<b:row style-class="ligneCreateur">
+						<h:outputText
+							value="Tutoriel proposé par : #{tuto.espaceTutoriel.membre.pseudonyme}"
+							styleClass="nomCreateur" />
+					</b:row>
+
+				</b:panel>
+			</div>
+		</ui:repeat>
+		<b:column col-md="4">
+			<b:navLink value="Ajouter un nouveau tutoriel" look="link"
+					onclick="$('.ajouterTuto').show()"
+					dismiss=".ajouterTuto"/>
+		</b:column>
+		
+	</b:panel>
+	<b:modal styleclass="ajouterTuto" title="Ajouter un tutoriel"
+			styleClass="modalPseudoClass">
+			
+			<f:facet name="footer">
+				<b:button value="Close" dismiss="modal" />
+				<b:button value="Ok" look="primary" dismiss="modal" />
+			</f:facet>
+		</b:modal>
+</b:form>
+<b:modal styleclass="ajouterTuto" title="Ajouter un tutoriel"
+			styleClass="modalPseudoClass">
+			
+			<f:facet name="footer">
+				<b:button value="Close" dismiss="modal" />
+				<b:button value="Ok" look="primary" dismiss="modal" />
+			</f:facet>
+		</b:modal>
+</html>

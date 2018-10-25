@@ -1,0 +1,40 @@
+@charset "UTF-8";
+
+
+.panelMembre {
+
+background-color: white;
+border: 1px solid #C6B2E0;
+text-align: center;
+}
+
+img{
+	width: 60%;
+}
+
+.img-fluid.membre{
+	border-radius: 50em;
+}
+
+.ligneBoutiqueEspaceTuto{
+	text-align: center;
+}
+
+.ligneImageMembre {
+	text-align: center;
+}
+
+.ligneMembre {
+	text-align: center;
+}
+
+.nomMembre {
+
+	font-size: 24px;
+}
+
+.labelNomBoutiqueMembre, .labelNomEspaceTutorielMembre, .labelDateInscription{
+	font-size: 13px;
+}
+
+
