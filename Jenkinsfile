@@ -13,20 +13,16 @@ pipeline {
     }
 	stage('Publication') {
       steps {
-        nexusArtifactUploader {
-        nexusVersion('nexus3')
-        protocol('http')
-        nexusUrl('localhost:8081/')
-        groupId('yatta')
-        version('1.0')
-        repository('maven-snapshots')
-        credentialsId('nexus')
-        artifact {
-            artifactId('yatta')
-            type('war')
-            classifier('debug')
-            file('Yatta_Web/target/Yatta_Web.war')
-        }
+        nexusArtifactUploader [
+			[artifactId: 'yatta', type: 'war', classifier:'debug', file: 'Yatta_Web/target/Yatta_Web.war']
+			],
+        nexusVersion: 'nexus3',
+        protocol: 'http',
+        nexusUrl: 'localhost:8081/',
+        groupId: 'yatta',
+        version: '1.0-SNAPSHOT', 
+        repository: 'maven-snapshots',
+        credentialsId'nexus'
       }
     }
   }
