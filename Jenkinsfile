@@ -13,7 +13,7 @@ pipeline {
     }
 	stage('Publication') {
       steps {
-        nexusArtifactUploader [
+        nexusArtifactUploader artifacts: [
 			[artifactId: 'yatta', type: 'war', classifier:'debug', file: 'Yatta_Web/target/Yatta_Web.war']
 			],
         nexusVersion: 'nexus3',
