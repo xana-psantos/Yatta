@@ -22,7 +22,7 @@ pipeline {
         groupId: 'yatta',
         version: '1.0-SNAPSHOT', 
         repository: 'maven-snapshots',
-        credentialsId'nexus'
+        credentialsId: 'nexus'
       }
     }
   }
