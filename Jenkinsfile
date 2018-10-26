@@ -14,13 +14,14 @@ pipeline {
     stage('Qualimetrie') {
       steps {
         bat(script: 'runqualimetrie.bat', encoding: 'utf-8')
+        waitForQualityGate(abortPipeline: true)
       }
     }
     stage('Publication') {
       steps {
         nexusArtifactUploader(artifacts: [
-          			[artifactId: 'yatta', type: 'war', classifier:'debug', file: 'Yatta_Web/target/Yatta_Web.war']
-          			], nexusVersion: 'nexus3', protocol: 'http', nexusUrl: 'localhost:8081/', groupId: 'yatta', version: '1.0-SNAPSHOT', repository: 'maven-snapshots', credentialsId: 'nexus')
+                    			[artifactId: 'yatta', type: 'war', classifier:'debug', file: 'Yatta_Web/target/Yatta_Web.war']
+                    			], nexusVersion: 'nexus3', protocol: 'http', nexusUrl: 'localhost:8081/', groupId: 'yatta', version: '1.0-SNAPSHOT', repository: 'maven-snapshots', credentialsId: 'nexus')
         }
       }
     }
