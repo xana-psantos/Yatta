@@ -13,10 +13,18 @@ pipeline {
     }
     stage('Qualimetrie') {
       steps {
-        bat(script: 'runqualimetrie.bat', encoding: 'utf-8')
-        waitForQualityGate(abortPipeline: true)
+	  withSonarQubeEnv('Sonar') {
+        bat(script: 'runqualimetrie.bat', encoding: 'utf-8')}
       }
     }
+	stage("Quality Gate"){
+		timeout(time: 1, unit: 'HOURS') { // Just in case something goes wrong, pipeline will be killed after a timeout
+			def qg = waitForQualityGate() // Reuse taskId previously collected by withSonarQubeEnv
+			if (qg.status != 'OK') {
+				error "Pipeline aborted due to quality gate failure: ${qg.status}"
+			}
+		}
+	}	
     stage('Publication') {
       steps {
         nexusArtifactUploader(artifacts: [
