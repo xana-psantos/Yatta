@@ -13,8 +13,8 @@ pipeline {
     }
     stage('Qualimetrie') {
       steps {
-	  withSonarQubeEnv('Sonar') {
-        bat(script: 'runqualimetrie.bat', encoding: 'utf-8')}
+		withSonarQubeEnv('Sonar') {
+			bat(script: 'runqualimetrie.bat', encoding: 'utf-8')}
       }
     }
 	stage("Quality Gate") {
@@ -23,7 +23,7 @@ pipeline {
 				// Parameter indicates whether to set pipeline to UNSTABLE if Quality Gate fails
 				// true = set pipeline to UNSTABLE, false = don't
 				// Requires SonarQube Scanner for Jenkins 2.7+
-				waitForQualityGate abortPipeline: true
+				waitForQualityGate(abortPipeline: true)
 			}
 		}
 	}
