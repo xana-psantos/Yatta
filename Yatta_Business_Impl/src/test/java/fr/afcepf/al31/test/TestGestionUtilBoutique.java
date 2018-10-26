@@ -103,7 +103,7 @@ public class TestGestionUtilBoutique {
         Assert.assertTrue(testCommandes.size() == 11);
     }
     
-    @Test
+    /*@Test
     public void testRechercheArticlesByBoutiqueByCategorie() {
         Boutique testBoutique = testGestionBoutique.getBoutiqueById(3);
         List<Categorie> testCats = testGestionBoutique.getAllCategorieBoutiques(testBoutique);
@@ -116,5 +116,5 @@ public class TestGestionUtilBoutique {
         Assert.assertTrue(testCats.get(0).getId() == 4);
         Assert.assertTrue(testCats.get(1).getId() == 2);
   
-    }
+    }*/
 }
