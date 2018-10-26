@@ -26,13 +26,13 @@ public class TestGestionUtilArticle {
     @Autowired
     private IGestionUtilBoutique testGestionBoutique;
     
-    @Test
+   /* @Test
     public void testGestionUtilArticle () {
         Boutique testBoutique = testGestionBoutique.getBoutiqueById(2);
         List<Article> testArticles = testGestionArticle.getArticlesBoutique(testBoutique);
         Assert.assertNotNull(testArticles);
         Assert.assertTrue(testArticles.size() == 2);
-    }
+    }*/
     
     @Test
     public void testafficherParBoutiqueOrderByNoteDesc() {
