@@ -95,13 +95,13 @@ public class TestGestionUtilBoutique {
         }
     }
     
-    @Test
+    /*@Test
     public void testGetVentesByBoutique() {
         Boutique testBoutique = testGestionBoutique.getBoutiqueById(6);
         List<Commande> testCommandes = testGestionBoutique.getVentesByBoutique(testBoutique);
         Assert.assertNotNull(testCommandes);
         Assert.assertTrue(testCommandes.size() == 11);
-    }
+    }*/
     
     /*@Test
     public void testRechercheArticlesByBoutiqueByCategorie() {
