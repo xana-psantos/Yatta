@@ -11,24 +11,17 @@ pipeline {
         bat(script: 'runmaven.bat', encoding: 'utf-8')
       }
     }
-	stage('Qualimetrie') {
+    stage('Qualimetrie') {
       steps {
-		bat(script: 'runmaven.bat', encoding: 'utf-8')
+        bat(script: 'runqualimetrie.bat', encoding: 'utf-8')
       }
     }
-	stage('Publication') {
+    stage('Publication') {
       steps {
-        nexusArtifactUploader artifacts: [
-			[artifactId: 'yatta', type: 'war', classifier:'debug', file: 'Yatta_Web/target/Yatta_Web.war']
-			],
-        nexusVersion: 'nexus3',
-        protocol: 'http',
-        nexusUrl: 'localhost:8081/',
-        groupId: 'yatta',
-        version: '1.0-SNAPSHOT', 
-        repository: 'maven-snapshots',
-        credentialsId: 'nexus'
+        nexusArtifactUploader(artifacts: [
+          			[artifactId: 'yatta', type: 'war', classifier:'debug', file: 'Yatta_Web/target/Yatta_Web.war']
+          			], nexusVersion: 'nexus3', protocol: 'http', nexusUrl: 'localhost:8081/', groupId: 'yatta', version: '1.0-SNAPSHOT', repository: 'maven-snapshots', credentialsId: 'nexus')
+        }
       }
     }
   }
-}
