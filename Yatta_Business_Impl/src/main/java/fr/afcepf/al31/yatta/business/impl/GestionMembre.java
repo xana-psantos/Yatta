@@ -49,6 +49,8 @@ public class GestionMembre implements IGestionMembre {
 
     @Override
     public EspaceTutoriel creerEspaceTutoriel(EspaceTutoriel paramEspace) {
+        float b= 3.6f;
+        boolean d = (3.6f == b);
         if (paramEspace.getDateCreation() == null) {
             paramEspace.setDateCreation(new Date());
         }
