@@ -41,9 +41,10 @@ public class TestGestionVendeur {
     
     private Membre membre;
     
-    /*@Test
+    @Test
     public void testPasserCommande() {
-        article11 = gestionUtilArticle.getArticleById(11);
+        //TODO : check values within database
+        /*article11 = gestionUtilArticle.getArticleById(11);
         membre = gestionUtilMisc.getMembreById(2);
         commandes = gestionCommande.ajouterArticlePanier(commandes, article11, QUANTITE);
         Assert.assertNotNull(commandes.get(0));
@@ -51,6 +52,6 @@ public class TestGestionVendeur {
             commande = gestionCommande.passerCommande(commande, membre);
             Assert.assertNotNull(commande.getDateValidation());
             Assert.assertNotNull(commande.getDateLivraison());
-        }
-    }*/
+        }*/
+    }
 }
