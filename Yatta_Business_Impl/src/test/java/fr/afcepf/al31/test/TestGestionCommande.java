@@ -33,7 +33,7 @@ public class TestGestionCommande {
     private Membre membre;
     private List<Commande> listeLignesCommandesMembres;
      
-    @Test
+    /*@Test
     public void TestRetourLignesCommandePanier() {
          membre = gestionUtilMisc.getMembreById(8);
          
@@ -42,7 +42,7 @@ public class TestGestionCommande {
          Assert.assertTrue(listeLignesCommandesMembres.size() == 2);
          //Assert.assertTrue(listeLignesCommandesMembres.get(0).getId() == 12);
          Assert.assertNotNull(listeLignesCommandesMembres.get(0).getLignesDeCommande().get(0));
-    }
+    }*/
     @Test
     public void testGetByID() {
         Commande com = gestionCommande.getCommandeById(1);
