@@ -40,7 +40,8 @@ public class TestGestionVendeur {
     private List<Commande> commandes = new ArrayList<>();
     
     private Membre membre;
-    @Test
+    
+    /*@Test
     public void testPasserCommande() {
         article11 = gestionUtilArticle.getArticleById(11);
         membre = gestionUtilMisc.getMembreById(2);
@@ -51,5 +52,5 @@ public class TestGestionVendeur {
             Assert.assertNotNull(commande.getDateValidation());
             Assert.assertNotNull(commande.getDateLivraison());
         }
-    }
+    }*/
 }
